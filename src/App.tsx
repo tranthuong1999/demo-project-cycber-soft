@@ -24,7 +24,7 @@ function App() {
   return (
     <div>
       <Appbar />
-      {/* <Banner /> */}
+      <Banner />
       {/* <h1> {counter.value}</h1>
       <Button onClick={handleIncrease}> Add</Button> */}
     </div>
