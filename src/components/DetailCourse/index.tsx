@@ -7,6 +7,7 @@ import { useMediaQuery } from '@mui/material';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import classNames from 'classnames';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { red } from '@mui/material/colors'
 
 const DetailCourse = () => {
 
@@ -95,10 +96,17 @@ const DetailCourse = () => {
                                             </div>
                                         </div>
                                         <div className='card-footer-right'>
-                                            <p> 800.000<sup>đ</sup></p>
-                                            <p> 400.000<sup>đ</sup></p>
+                                            <p className='real-count'> 800.000<sup>đ</sup></p>
+                                            <p className='dist-count'>
+                                                400.000<sup>đ</sup>
+                                                <i className='fas fa-tag iconTag' style={{
+                                                    fontSize: '18px', color: "red", marginLeft: '4px'
+                                                }} />
+                                            </p>
                                         </div>
-
+                                    </div>
+                                    <div className='card-sale'>
+                                        <span> Yêu thích</span>
                                     </div>
                                 </Card>
                             )
@@ -145,10 +153,17 @@ const DetailCourse = () => {
                                             </div>
                                         </div>
                                         <div className='card-footer-right'>
-                                            <p> 800.000<sup>đ</sup></p>
-                                            <p> 400.000<sup>đ</sup></p>
+                                            <p className='real-count'> 800.000<sup>đ</sup></p>
+                                            <p className='dist-count'> 400.000
+                                                <sup>đ</sup>
+                                                <i className='fas fa-tag iconTag' style={{
+                                                    fontSize: '18px', color: "red", marginLeft: '4px'
+                                                }} />
+                                            </p>
                                         </div>
-
+                                    </div>
+                                    <div className='card-sale'>
+                                        <span> Yêu thích</span>
                                     </div>
                                 </Card>
                             )

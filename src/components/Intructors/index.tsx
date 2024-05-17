@@ -9,7 +9,8 @@ import intructor_4 from "../../assets/instructor/intructor_4.jpg"
 import intructor_5 from "../../assets/instructor/intructor_5.jpg"
 import intructor_6 from "../../assets/instructor/intructor_6.jpg"
 import intructor_7 from "../../assets/instructor/intructor_7.jpg"
-
+import { useTheme } from "@mui/material/styles"
+import { useMediaQuery } from '@mui/material';
 
 const data = [
     { name: "Big DadMoon", title: "Chuyên gia lĩnh vực", img: intructor_1, expert: "lập trình" },
@@ -26,6 +27,10 @@ const Intructors = () => {
     const [isLeftDotActive, setIsLeftDotActive] = useState(false);
     const [isRightDotActive, setIsRightDotActive] = useState(true);
     const [listData, setListData] = useState(data.slice(0, 6))
+    const theme = useTheme()
+    const isMobile = useMediaQuery(theme.breakpoints.down(767));
+    const isTabnet = useMediaQuery(theme.breakpoints.between(767, 1024));
+
 
     useEffect(() => {
         if (isLeftDotActive) {
@@ -78,6 +83,39 @@ const Intructors = () => {
             <div className="slider-dot">
                 <div className={classNames("dot-left", isLeftDotActive ? "dot-left-active" : "")} onClick={() => { setIsLeftDotActive(true); setIsRightDotActive(false); }}> </div>
                 <div className={classNames("dot-right", isRightDotActive ? "dot-right-active" : "")} onClick={() => { setIsRightDotActive(true); setIsLeftDotActive(false); }}></div>
+            </div>
+
+            <div className='review'>
+                <div className='review-student'>
+                    <div className='triangle-top-right'></div>
+                    <div className='small-box small-box-left-top'></div>
+                    <div className='small-box small-box-right-bottom'></div>
+                    <div className='small-box small-box-right-top'></div>
+                    <div className='small-box small-box-left-bottom'></div>
+
+                    <div className={classNames("row", isMobile ? "row-mobile" : "")}>
+                        <div className='row-left'>
+                            <div className={classNames("review-img", isMobile ? "review-img-mobile" : "")}>
+                                <div className='bg-student-review'></div>
+                                <img src="https://demo2.cybersoft.edu.vn/static/media/avatarReview.2f5a1f3c.png" />
+
+                            </div>
+                        </div>
+                        <div className='row-right'>
+                            <blockquote className="text-qoute">
+                                <q>
+                                    Chương trình giảng dạy được biên soạn dành riêng cho các bạn Lập trình từ trái ngành hoặc đã có kiến thức theo cường độ cao, luôn được tinh chỉnh và tối ưu hóa theo thời gian bởi các thành viên sáng lập và giảng viên dày kinh nghiệm.Thực sự rất hay và hấp dẫn
+                                </q>
+                            </blockquote>
+                            <p>
+                                Nhi Dev
+                            </p>
+                            <span> Học viên xuất sắc</span>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
 
         </div >

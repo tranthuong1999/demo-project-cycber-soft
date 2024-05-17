@@ -9,6 +9,7 @@ import Course from './components/Course';
 import DetailCourse from './components/DetailCourse';
 import Member from './components/Member';
 import Intructors from './components/Intructors';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <DetailCourse />
       <Member />
       <Intructors />
+      <Footer/>
     </div>
   );
 }
