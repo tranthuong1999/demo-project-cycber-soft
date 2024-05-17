@@ -4,12 +4,17 @@ import { useTheme } from "@mui/material/styles"
 import { useMediaQuery } from '@mui/material';
 import classNames from 'classnames';
 import CountUp from 'react-countup';
+import member_1 from "../../assets/member/member_1.png"
+import member_2 from "../../assets/member/member_2.png"
+import member_3 from "../../assets/member/member_3.png"
+import member_4 from "../../assets/member/member_4.png"
+
 
 const data = [
-    { img: "http://demo2.cybersoft.edu.vn/static/media/003-students.e1a7c67b.png", number: 9000, title: " Học viên" },
-    { img: "http://demo2.cybersoft.edu.vn/static/media/001-timetable.0e009173.png", number: 1000, title: "Khoá học" },
-    { img: "http://demo2.cybersoft.edu.vn/static/media/002-hourglass.548810be.png", number: 33200, title: "Giờ học" },
-    { img: "http://demo2.cybersoft.edu.vn/static/media/004-teacher.5bbd6eec.png", number: 400, title: "Giảng viên" },
+    { img: member_1, number: 9000, title: " Học viên" },
+    { img: member_2, number: 1000, title: "Khoá học" },
+    { img: member_3, number: 33200, title: "Giờ học" },
+    { img: member_4, number: 400, title: "Giảng viên" },
 ]
 
 const Member = () => {
