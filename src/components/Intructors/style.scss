@@ -16,11 +16,7 @@
         transition: transform 0.3s ease;
 
         &-left {
-            transform: translateX(-100px);
-        }
-
-        &-right {
-            transform: translateX(100px);
+            transform: translateX(-10px);
         }
 
         .member-intructor {

@@ -34,7 +34,7 @@ const Intructors = () => {
         <div className='instructor'>
             <h6 className='intructor-top'> Giảng viên hàng đầu</h6>
             <div
-                className={classNames("row-intructor", isLeftDotActive ? "row-intructor-left" : "", isRightDotActive ? "row-intructor-right" : "")}
+                className={classNames("row-intructor", isLeftDotActive ? "row-intructor-left" : "")}
             >
                 {
                     listData.map((item, index) => {
