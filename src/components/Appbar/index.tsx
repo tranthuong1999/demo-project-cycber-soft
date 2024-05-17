@@ -25,6 +25,7 @@ const Appbar = () => {
     const [isFocused, setIsFocused] = useState(false);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down(750));
+    const [isEffectMenu, setIsEffectMenu] = useState(false)
 
     const handleSearchOnFocus = () => {
         setIsFocused(true);
@@ -33,9 +34,6 @@ const Appbar = () => {
     const handleSearchBlur = () => {
         setIsFocused(false);
     };
-
-
-    console.log("isMobile", isMobile)
 
     return (
         <div className='app-bar'>
@@ -114,10 +112,10 @@ const Appbar = () => {
                     !!isMobile
                     &&
                     <div className='menu-mobile'>
-                        <div className='icon-show-menu'>
+                        <div className='icon-show-menu' onClick={() => setIsEffectMenu(!isEffectMenu)}>
                             <ArrowDropDownIcon style={{ fontSize: "30px", fontWeight: 900 }} />
                         </div>
-                        <div className='list-menu'>
+                        <div className={classNames("list-menu", isEffectMenu ? "list-menu-active" : "")}>
                             <div className='menu'>
                                 <input placeholder='Tìm kiếm' className='icon-search' />
                             </div>

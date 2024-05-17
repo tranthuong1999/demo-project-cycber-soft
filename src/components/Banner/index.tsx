@@ -4,16 +4,25 @@ import banner from '../../assets/banner.png'
 import message_slider from '../../assets/message_slider.png'
 import plan from '../../assets/plan-img.png'
 import clound from '../../assets/clouds.png'
+import { useTheme } from "@mui/material/styles"
+import { useMediaQuery } from '@mui/material'
+import classNames from "classnames";
+
 
 const Banner = () => {
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down(767));
+  const isTabnet = useMediaQuery(theme.breakpoints.down(1024));
+
   return (
-    <div className='banner'>
+    <div className={classNames("banner", isMobile ? "banner-mobile" : "", isTabnet ? "banner-tabnet" : "")}>
       <div className='banner-left'>
         <div className='triangle-top-right'></div>
         <div className='small-box small-box-left-top'></div>
         <div className='small-box small-box-right-top'></div>
         <div className='small-box small-box-right-bottom'></div>
-        <div className='slogan-container'>
+        <div className={classNames("slogan-container", isMobile ? "slogan-container-mobile" : "", isTabnet ? "slogan-container-tabnet" : "")}>
           <div>
             <img src={plan} className="slider-plane-img" />
           </div>

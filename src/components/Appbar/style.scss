@@ -87,6 +87,16 @@
         }
 
         .list-menu {
+            @keyframes fadeInDown {
+                0% {
+                    opacity: 0;
+                }
+
+                100% {
+                    opacity: 1;
+                }
+
+            }
 
             position: absolute;
             width: 180px;
@@ -95,6 +105,13 @@
             background-color: rgba(1, 135, 126, .8);
             top: 80px;
             right: 0;
+            animation: fadeInDown .5s ease-in;
+            transition: all .5s;
+            transform: translateX(calc(100% + 50px));
+
+            &-active {
+                transform: translateX(0);
+            }
 
             .menu {
                 padding: 5px;

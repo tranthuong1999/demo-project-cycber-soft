@@ -1,0 +1,48 @@
+.member {
+    margin-top: 50px;
+    padding: 50px;
+    background-color: #f0f8ff;
+
+    .row {
+        display: flex;
+        justify-content: space-around;
+
+        &-mobile {
+            flex-direction: column;
+        }
+
+        &-tabnet {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+
+        .item-member {
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem !important;
+            gap: 16px;
+            align-items: center;
+
+            .member-img {
+                img {
+                    width: 80px;
+                    height: 80px;
+                    vertical-align: middle;
+                    border-style: none;
+                }
+            }
+
+            .text-number {
+                font-size: 50px;
+                color: #41b294;
+                font-weight: bold;
+            }
+
+            .member-title {
+                font-weight: bold;
+            }
+        }
+
+    }
+}
