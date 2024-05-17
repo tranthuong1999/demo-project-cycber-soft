@@ -2,15 +2,23 @@
 import React, { useEffect, useState } from 'react';
 import "./style.scss";
 import classNames from 'classnames';
+import intructor_1 from "../../assets/instructor/intructor_1.jpg"
+import intructor_2 from "../../assets/instructor/intructor_2.jpg"
+import intructor_3 from "../../assets/instructor/intructor_3.jpg"
+import intructor_4 from "../../assets/instructor/intructor_4.jpg"
+import intructor_5 from "../../assets/instructor/intructor_5.jpg"
+import intructor_6 from "../../assets/instructor/intructor_6.jpg"
+import intructor_7 from "../../assets/instructor/intructor_7.jpg"
+
 
 const data = [
-    { name: "Big DadMoon", title: "Chuyên gia lĩnh vực", img: "http://demo2.cybersoft.edu.vn/static/media/instrutor5.2e4bd1e6.jpg", expert: "lập trình" },
-    { name: "IcarDi MenBor", title: "Chuyên gia ngôn ngữ", img: "http://demo2.cybersoft.edu.vn/static/media/instrutor6.64041dca.jpg", expert: "Vue Js" },
-    { name: "Bladin Slaham", title: "Chuyên gia hệ thống", img: "http://demo2.cybersoft.edu.vn/static/media/instrutor7.edd00a03.jpg", expert: "máy tính" },
-    { name: "Chris Andersan", title: "Chuyên gia lĩnh vực", img: "http://demo2.cybersoft.edu.vn/static/media/instrutor8.aec2f526.jpg", expert: "Full Skill" },
-    { name: "VueLo Gadi", title: "Chuyên gia lĩnh vực", img: "http://demo2.cybersoft.edu.vn/static/media/instrutor9.504ea6c5.jpg", expert: "Phân tích" },
-    { name: "Hoàng Nam", title: "Chuyên gia lĩnh vực", img: "http://demo2.cybersoft.edu.vn/static/media/instrutor10.89946c43.jpg", expert: "PHP" },
-    { name: "David Ngô Savani", title: "Chuyên gia lĩnh vực", img: "http://demo2.cybersoft.edu.vn/static/media/instrutor11.0387fe65.jpg", expert: "Front End" },
+    { name: "Big DadMoon", title: "Chuyên gia lĩnh vực", img: intructor_1, expert: "lập trình" },
+    { name: "IcarDi MenBor", title: "Chuyên gia ngôn ngữ", img: intructor_2, expert: "Vue Js" },
+    { name: "Bladin Slaham", title: "Chuyên gia hệ thống", img: intructor_3, expert: "máy tính" },
+    { name: "Chris Andersan", title: "Chuyên gia lĩnh vực", img: intructor_4, expert: "Full Skill" },
+    { name: "VueLo Gadi", title: "Chuyên gia lĩnh vực", img: intructor_5, expert: "Phân tích" },
+    { name: "Hoàng Nam", title: "Chuyên gia lĩnh vực", img: intructor_6, expert: "PHP" },
+    { name: "David Ngô Savani", title: "Chuyên gia lĩnh vực", img: intructor_7, expert: "Front End" },
 ]
 
 const Intructors = () => {
