@@ -1,0 +1,162 @@
+.footer-page {
+    padding: 10px;
+    background-color: #f0f8ff;
+    overflow: hidden;
+
+    .iconFooter {
+        display: inline-block;
+        margin: 0 10px;
+        width: 40px;
+        height: 40px;
+        color: #fff;
+        background: #41b294;
+        border-radius: 50%;
+        line-height: 40px;
+        text-align: center;
+        transition: all .5s;
+    }
+
+    .footer-body {
+        padding: 10px 40px;
+
+        .row-text-card-title {
+            display: flex;
+            justify-content: space-around;
+
+            &-mobile {
+                flex-direction: column;
+                justify-content: flex-start;
+            }
+
+            .card-content-center {
+                display: flex;
+                min-width: 500px;
+                justify-content: space-around;
+
+                &-mobile {
+                    justify-content: space-between;
+                }
+            }
+
+            .card-content {
+                .text-footer-title {
+                    font-size: 25px;
+                    font-weight: bold;
+                }
+
+                .text-logo {
+                    color: black;
+                    display: inline-block;
+                    position: relative;
+                    font-size: 20px;
+                    transition: all .3s;
+                    text-shadow: 5px -2px 3px #54d2c0;
+                    font-weight: bold;
+
+                    .textV {
+                        font-size: 40px;
+                        color: #41b294
+                    }
+
+                    .iconLogo {
+                        right: 5px;
+                        top: 15px;
+                        position: absolute;
+                        font-weight: 600;
+                    }
+
+                    &:hover {
+                        transition: all .5s;
+                        transform: scale(1.05);
+                    }
+                }
+
+                .menu-footer li {
+                    padding: 5px 0;
+                    transition: all .5s;
+                    font-weight: bold;
+                    list-style: none;
+
+                    .icon {
+                        font-size: 12px;
+                        font-weight: 900;
+                        margin-right: 5px;
+                    }
+
+                    &:hover {
+                        transform: translateY(-2px);
+                        color: #01877e;
+                        cursor: pointer;
+                    }
+                }
+
+                .form-sign-in {
+                    display: flex;
+                    flex-direction: column;
+
+                    .form {
+                        display: flex;
+                        flex-direction: column;
+
+                        .form-footer {
+                            margin: 3px 0;
+                            outline: none;
+                            border: none;
+                            width: 300px;
+                            max-width: 100%;
+                            height: 40px;
+                            border: 2px solid #41b294;
+                            border-radius: 8px;
+                            padding-left: 10px;
+                            background-color: #f5f5f5;
+                        }
+                    }
+
+                    .btn-sign-in {
+                        padding: 5px 10px;
+                        background-color: #f6ba35;
+                        border: none;
+                        transition: all .5s;
+                        text-transform: uppercase;
+                        font-size: 15px;
+                        margin-top: 1rem !important;
+                        color: #fff;
+                        cursor: pointer;
+                        max-width: 85px;
+                    }
+                }
+
+            }
+        }
+    }
+
+    .extra-footer {
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid #d0d0d0;
+        padding-left: 160px;
+        padding-right: 60px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+
+        &-mobile {
+            flex-direction: column;
+            gap: 13px;
+        }
+
+        .text-card-title {
+            font-weight: 700px;
+        }
+
+        .icon-socia {
+            .icon-size {
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
+                margin: 0 5px;
+                transition: all .3s linear;
+                font-size: 18px;
+            }
+        }
+    }
+}
