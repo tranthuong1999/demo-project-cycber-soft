@@ -10,11 +10,10 @@ import DetailCourse from './components/DetailCourse';
 import Member from './components/Member';
 import Intructors from './components/Intructors';
 import Footer from './components/Footer';
+import BackTop from './components/BackTop';
 
 
 function App() {
-
-
   return (
     <div>
       <Appbar />
@@ -23,7 +22,8 @@ function App() {
       <DetailCourse />
       <Member />
       <Intructors />
-      <Footer/>
+      <BackTop />
+      <Footer />
     </div>
   );
 }

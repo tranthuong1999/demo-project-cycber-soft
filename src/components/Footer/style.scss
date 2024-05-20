@@ -35,6 +35,8 @@
 
                 &-mobile {
                     justify-content: space-between;
+                    min-width: auto;
+                    overflow: hidden;
                 }
             }
 
