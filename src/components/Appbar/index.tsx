@@ -8,6 +8,7 @@ import { useTheme } from "@mui/material/styles"
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { listCategory } from '../../redux/slices/category.slice';
+import { useNavigate } from 'react-router-dom';
 
 const itemEvent = [
     { name: "SỰ KIỆN SALE CUỐI NĂM", href: "" },
@@ -20,6 +21,7 @@ const Appbar = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down(750));
     const [isEffectMenu, setIsEffectMenu] = useState(false)
+    const navigate = useNavigate();
 
     const { listCategories } = useAppSelector((state) => state.categoryReducer);
     const dispatch = useAppDispatch();
@@ -58,7 +60,7 @@ const Appbar = () => {
                     title={
                         <div className="sub-title-category">
                             {
-                                listCategories?.map((item:any) => {
+                                listCategories?.map((item: any) => {
                                     return (
                                         <Button className='item-button'>
                                             {item.tenDanhMuc}
@@ -77,10 +79,10 @@ const Appbar = () => {
                     </Button>
                 </Tooltip>
                 <Tooltip title="" >
-                    <Button className="header-right-menu"  >KHOÁ HỌC</Button>
+                    <Button className="header-right-menu" onClick={() => navigate("/course")} >KHOÁ HỌC</Button>
                 </Tooltip>
                 <Tooltip title="" >
-                    <Button className="header-right-menu">BLOG</Button>
+                    <Button className="header-right-menu" onClick={() => navigate("/blog")}>BLOG</Button>
                 </Tooltip>
                 <Tooltip
                     classes={{ tooltip: "category-tooltip" }}
@@ -99,10 +101,10 @@ const Appbar = () => {
                         </div>
                     }
                 >
-                    <Button className="header-right-menu">SỰ KIỆN</Button>
+                    <Button className="header-right-menu" onClick={() => navigate("/event")}>SỰ KIỆN</Button>
                 </Tooltip>
                 <Tooltip title="">
-                    <Button className="header-right-menu">THÔNG TIN</Button>
+                    <Button className="header-right-menu" onClick={() => navigate("/information")}>THÔNG TIN</Button>
                 </Tooltip>
             </div>}
             <div className='show-icon-header'>
@@ -126,7 +128,7 @@ const Appbar = () => {
                                 title={
                                     <div className="sub-title-category">
                                         {
-                                            listCategories?.map((item:any) => {
+                                            listCategories?.map((item: any) => {
                                                 return (
                                                     <Button className='item-button'>
                                                         {item.tenDanhMuc}
@@ -144,10 +146,10 @@ const Appbar = () => {
                                 </Button>
                             </Tooltip>
                             <Tooltip title="" >
-                                <Button className="header-right-menu"  >KHOÁ HỌC</Button>
+                                <Button onClick={() => navigate("/course")} className="header-right-menu" >KHOÁ HỌC</Button>
                             </Tooltip>
                             <Tooltip title="" >
-                                <Button className="header-right-menu">BLOG</Button>
+                                <Button className="header-right-menu" onClick={() => navigate("/blog")}>BLOG</Button>
                             </Tooltip>
                             <Tooltip
                                 classes={{ tooltip: "category-tooltip-mobile" }}
@@ -166,10 +168,10 @@ const Appbar = () => {
                                     </div>
                                 }
                             >
-                                <Button className="header-right-menu">SỰ KIỆN</Button>
+                                <Button className="header-right-menu" onClick={() => navigate("/event")}>SỰ KIỆN</Button>
                             </Tooltip>
                             <Tooltip title="">
-                                <Button className="header-right-menu">THÔNG TIN</Button>
+                                <Button className="header-right-menu" onClick={() => navigate("/information")} >THÔNG TIN</Button>
                             </Tooltip>
                         </div>
                     </div>

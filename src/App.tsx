@@ -13,6 +13,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './components/Login';
 import RegisterPage from './components/Register';
 import DetailTotalCourse from './components/DetailTotalCourse';
+import BlogPage from './components/Blog';
+import EventPage from './components/Event';
+import InformationPage from './components/Information';
 
 function App() {
   const MainLayout = () => {
@@ -24,7 +27,6 @@ function App() {
         <Member />
         <Intructors />
         <BackTop />
-        <TestDesign />
       </div>
     )
   }
@@ -37,6 +39,9 @@ function App() {
         <Route path="/sign-in" element={<LoginPage />} />
         <Route path="/sign-up" element={<RegisterPage />} />
         <Route path="/course" element={<DetailTotalCourse />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/event" element={<EventPage />} />
+        <Route path="/information" element={<InformationPage />} />
       </Routes>
       <Footer />
     </Router>
