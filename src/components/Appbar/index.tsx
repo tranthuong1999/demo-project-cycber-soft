@@ -36,8 +36,6 @@ const Appbar = () => {
         setIsFocused(false);
     };
 
-    console.log("categoryState", listCategories)
-
     return (
         <div className='app-bar'>
             <div className='header-left'>

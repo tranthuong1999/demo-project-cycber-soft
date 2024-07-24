@@ -18,5 +18,23 @@ export const apiGetistCategory = async () => {
         console.log("apiGetistCategory", error)
     }
 }
+export const apiGetListCourse = async (props: { page: number, pageSize?: number, MaNhom?: string }) => {
+    const { page} = props;
+    try {
+        const response = await fetch(`https://elearningnew.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc_PhanTrang?page=${page}&pageSize=12&MaNhom=GP01`, {
+            method: "GET",
+            headers: {
+                "Tokencybersoft": `${token}`,
+                "Content-Type": "application/json"
+            }
+        });
+        const data: any = await response.json();
+        return data;
+    }
+    catch (error) {
+        console.log("apiGetistCategory", error)
+    }
+}
+
 
 

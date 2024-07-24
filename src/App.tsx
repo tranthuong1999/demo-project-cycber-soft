@@ -9,21 +9,37 @@ import Intructors from './components/Intructors';
 import Footer from './components/Footer';
 import BackTop from './components/BackTop';
 import TestDesign from './components/TestDesign';
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginPage from './components/Login';
+import RegisterPage from './components/Register';
+import DetailTotalCourse from './components/DetailTotalCourse';
 
 function App() {
+  const MainLayout = () => {
+    return (
+      <div>
+        <Banner />
+        <Course />
+        <DetailCourse />
+        <Member />
+        <Intructors />
+        <BackTop />
+        <TestDesign />
+      </div>
+    )
+  }
+
   return (
-    <div>
+    <Router>
       <Appbar />
-      <Banner />
-      <Course />
-      <DetailCourse />
-      <Member />
-      <Intructors />
-      <BackTop />
-      <TestDesign />
+      <Routes>
+        <Route path="/" element={<MainLayout />} />
+        <Route path="/sign-in" element={<LoginPage />} />
+        <Route path="/sign-up" element={<RegisterPage />} />
+        <Route path="/course" element={<DetailTotalCourse />} />
+      </Routes>
       <Footer />
-    </div>
+    </Router>
   );
 }
 
