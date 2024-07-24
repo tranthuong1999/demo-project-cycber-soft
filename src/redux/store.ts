@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterSlice from "./slices/counter.slice";
+import categorySlice from "./slices/category.slice";
 
 
 const store = configureStore({
     reducer: {
-        counterSlice: counterSlice,
+        categoryReducer: categorySlice
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false

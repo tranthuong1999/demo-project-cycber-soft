@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import { Button } from '@mui/material';
-import { increment } from './redux/slices/counter.slice';
-import { apiGetSession } from './apis/user.api';
 import Appbar from './components/Appbar';
 import Banner from './components/Banner';
 import Course from './components/Course';
@@ -11,6 +8,7 @@ import Member from './components/Member';
 import Intructors from './components/Intructors';
 import Footer from './components/Footer';
 import BackTop from './components/BackTop';
+import TestDesign from './components/TestDesign';
 
 
 function App() {
@@ -23,6 +21,7 @@ function App() {
       <Member />
       <Intructors />
       <BackTop />
+      <TestDesign />
       <Footer />
     </div>
   );

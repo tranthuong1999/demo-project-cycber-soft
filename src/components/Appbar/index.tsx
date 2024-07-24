@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./style.scss";
 import logo from '../../assets/logo.png'
 import classNames from "classnames";
@@ -6,15 +6,9 @@ import { Button, Tooltip, useMediaQuery } from '@mui/material';
 import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 import { useTheme } from "@mui/material/styles"
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { listCategory } from '../../redux/slices/category.slice';
 
-const itemCategory = [
-    { name: "LẬP TRÌNH BACKEND", href: "" },
-    { name: "THIẾT KẾ WEB", href: "" },
-    { name: "LẬP TRÌNH DI ĐỘNG", href: "" },
-    { name: "LẬP TRÌNH FONTEND", href: "" },
-    { name: "LẬP TRÌNH FULLSTACK", href: "" },
-    { name: "TƯ DUY LẬP TRÌNH", href: "" }
-]
 const itemEvent = [
     { name: "SỰ KIỆN SALE CUỐI NĂM", href: "" },
     { name: "SỰ KIỆN GIÁNG SINH", href: "" },
@@ -27,6 +21,13 @@ const Appbar = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down(750));
     const [isEffectMenu, setIsEffectMenu] = useState(false)
 
+    const { listCategories } = useAppSelector((state) => state.categoryReducer);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(listCategory())
+    }, [])
+
     const handleSearchOnFocus = () => {
         setIsFocused(true);
     };
@@ -34,6 +35,8 @@ const Appbar = () => {
     const handleSearchBlur = () => {
         setIsFocused(false);
     };
+
+    console.log("categoryState", listCategories)
 
     return (
         <div className='app-bar'>
@@ -57,10 +60,10 @@ const Appbar = () => {
                     title={
                         <div className="sub-title-category">
                             {
-                                itemCategory.map((item) => {
+                                listCategories?.map((item:any) => {
                                     return (
                                         <Button className='item-button'>
-                                            {item.name}
+                                            {item.tenDanhMuc}
                                         </Button>
                                     )
                                 })
@@ -125,10 +128,10 @@ const Appbar = () => {
                                 title={
                                     <div className="sub-title-category">
                                         {
-                                            itemCategory.map((item) => {
+                                            listCategories?.map((item:any) => {
                                                 return (
                                                     <Button className='item-button'>
-                                                        {item.name}
+                                                        {item.tenDanhMuc}
                                                     </Button>
                                                 )
                                             })
