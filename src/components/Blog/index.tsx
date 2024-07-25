@@ -1,8 +1,15 @@
-import React from 'react'
+import React from 'react';
+import './style.scss';
 
 const BlogPage = () => {
     return (
-        <div>BlogPage</div>
+        <div className='blog-page'>
+            <div className='block-1-blog'>
+                <h1> BLOG</h1>
+                <p>THÔNG TIN CÔNG NGHỆ SỐ!!!</p>
+
+            </div>
+        </div>
     )
 }
 

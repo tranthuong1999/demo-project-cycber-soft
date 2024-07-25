@@ -17,11 +17,6 @@ import creative_6 from "../../assets/crea_6.jpg"
 import creative_7 from "../../assets/crea_7.jpg"
 import creative_8 from "../../assets/crea_8.jpg"
 
-
-
-
-
-
 const dataSponsor = [
     { image: img_meta, title: "FACEBOOK" },
     { image: img_micro, title: "MICROSOFT" },
