@@ -1,0 +1,286 @@
+.event-page {
+    position: relative;
+    overflow: hidden;
+
+    .child-block-1 {
+        background-size: cover;
+        -webkit-filter: grayscale(50%);
+
+        .image-block-1 {
+            img {
+                width: 100%;
+                height: 700px;
+                object-fit: fill;
+            }
+        }
+
+        .image-block-2 {
+            position: absolute;
+            top: 0;
+            left: 55%;
+
+            &.image-block-2-mobile {
+                left: 0;
+            }
+
+            img {
+                width: 700px;
+                object-fit: fill;
+            }
+        }
+
+        .infor-event {
+            position: absolute;
+            z-index: 100;
+            top: 30%;
+            left: 100px;
+
+            .list-time {
+                display: flex;
+                color: #fff;
+                gap: 30px;
+
+                .item-time {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 20px;
+                    font-weight: 600;
+
+                    &.item-time-1 {
+                        color: #ffbe0b;
+                    }
+
+                    &.item-time-2 {
+                        color: #fb5607;
+                    }
+
+                    &.item-time-3 {
+                        color: #ff006e;
+                    }
+
+                    &.item-time-4 {
+                        color: #8338ec;
+                    }
+
+                    .time {
+                        line-height: 30px;
+                        font-size: 60px;
+                        font-weight: 600;
+                    }
+
+                    .day {
+                        font-size: 20px;
+                        font-weight: 400;
+                        color: #fff;
+                    }
+                }
+
+            }
+
+            .title-evn {
+                font-size: 40px;
+                font-weight: 600;
+                padding: 10px 0;
+                color: #fff;
+            }
+
+            .date-evn {
+                font-size: 18px;
+                color: #fff;
+            }
+        }
+    }
+
+    .child-block-2 {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+
+        &.child-block-2-mobile {
+            flex-direction: column;
+            align-items: center;
+
+            .desc-event {
+                padding: 0 50px;
+                padding-bottom: 50px;
+            }
+
+        }
+
+        @keyframes img-evnt {
+            0% {
+                -webkit-transform: translateY(-15px);
+                transform: translateY(-15px);
+            }
+
+            50% {
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+
+            100% {
+                -webkit-transform: translateY(-15px);
+                transform: translateY(-15px);
+            }
+        }
+
+        .img-detail {
+            padding: 50px;
+
+
+            img {
+                width: 100%;
+                height: 300px;
+                object-fit: cover;
+                animation: img-evnt 3s linear infinite;
+            }
+        }
+
+        .desc-event {
+            padding: 50px;
+
+            h5 {
+                padding-bottom: 10px;
+                text-transform: uppercase;
+                color: #9f1f56;
+                font-size: 30px;
+                font-weight: 600;
+            }
+
+            .meeting {
+                font-weight: 700;
+            }
+
+            .card-text {
+                font-size: 16px;
+                color: #8c8c8c;
+                padding: 20px 0px;
+                max-width: 520px;
+            }
+
+            .btn {
+                padding: 8px 16px;
+                border-radius: 4px;
+                border: none;
+                color: #fff;
+                text-transform: uppercase;
+            }
+
+            .btn-join {
+                margin-right: 16px;
+                background-color: #41b294;
+            }
+
+            .btn-more {
+                background-color: #f6ba35;
+            }
+        }
+    }
+
+    .child-block-4 {
+        padding: 0 50px;
+
+        .name-sponsor {
+            text-align: center;
+            padding: 20px;
+            font-size: 30px;
+            color: #f6ba35;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .list-sponsor {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding-top: 20px;
+            padding-bottom: 50px;
+
+            &.list-sponsor-mobile {
+                grid-template-columns: repeat(1, 1fr);
+            }
+
+            &.list-sponsor-tabnet {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .item-sponsor {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                align-items: center;
+
+                .img-logo {
+                    width: 100%;
+                    height: 220px;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 10px;
+                    }
+                }
+
+                .title {
+                    font-size: 20px;
+                    text-transform: uppercase;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    .child-block-3 {
+        padding: 50px;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-image: url("https://demo2.cybersoft.edu.vn/static/media/lightTech.32807735.jpg");
+
+        .name-creative {
+            text-align: center;
+            font-size: 30px;
+            color: #f6ba35;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 20px;
+        }
+
+        .list-creative {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+
+            &.list-creative-mobile {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            &.list-creative-tabnet {
+                grid-template-columns: repeat(3, 1fr);
+
+            }
+
+            .item-creative {
+                .img-logo {
+                    width: 100%;
+                    height: 300px;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+
+                .name {
+                    font-weight: 600;
+                    font-size: 15px;
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+
+
+}
