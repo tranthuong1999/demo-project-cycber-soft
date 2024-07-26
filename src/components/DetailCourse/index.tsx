@@ -1,20 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./style.scss"
-import { data } from './data'
 import { Card, Divider } from '@mui/material'
 import { useTheme } from "@mui/material/styles"
 import { useMediaQuery } from '@mui/material';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
 import classNames from 'classnames';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { red } from '@mui/material/colors'
 import CourseCommonPage from '../CourseCommon'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { useSelector } from 'react-redux'
+import { fetchListAllCategory } from '../../redux/slices/category.slice'
+import { data } from './data';
 
 const DetailCourse = () => {
 
     const theme = useTheme();
     const isTabnet = useMediaQuery(theme.breakpoints.between(770, 1200));
     const isMobile = useMediaQuery(theme.breakpoints.down(770));
+    const dispatch = useAppDispatch();
+    const { listAllCourse } = useAppSelector((state) => state.categoryReducer)
+
+    useEffect(() => {
+       dispatch(fetchListAllCategory())
+    }, [])
+
 
 
     return (
@@ -22,7 +30,7 @@ const DetailCourse = () => {
             <h6 className='name-course'> Khóa học phổ biến</h6>
             <div className={classNames("course-popular", isTabnet ? "course-popular-tabnet" : "", isMobile ? "course-popular-mobile" : "")}>
                 {
-                    data.slice(0, 5).map((item, index) => {
+                    data.slice(0,5).map((item:any, index) => {
                         return (
                             <Card className='card-global'>
                                 <div className='card-img'>
@@ -60,10 +68,10 @@ const DetailCourse = () => {
 
             {/* course tham khao */}
             <div className="all-course">
-                <h6>Khóa học tham khảo</h6>
+                <h6 style={{ marginBottom:"20px"}}>Khóa học tham khảo</h6>
                 <div className={classNames("course-reference", isTabnet ? "course-reference-tabnet" : "", isMobile ? "course-reference-mobile" : "")}>
                     {
-                        data.slice(11,16).map((item: any, index: any) => {
+                        listAllCourse.slice(11, 16).map((item: any, index: any) => {
                             return (
                                 <CourseCommonPage
                                     image={item.hinhAnh}
@@ -78,10 +86,10 @@ const DetailCourse = () => {
             </div>
             {/* course yeu thich */}
             <div className="all-course">
-                <h6> Khóa học Front End React Js</h6>
+                <h6 style={{ marginBottom:"20px"}}> Khóa học Front End React Js</h6>
                 <div className={classNames("course-reference", isTabnet ? "course-reference-tabnet" : "", isMobile ? "course-reference-mobile" : "")}>
                     {
-                        data.slice(6, 11).map((item: any, index: any) => {
+                        listAllCourse.slice(6, 11).map((item: any, index: any) => {
                             return (
                                 <CourseCommonPage
                                     image={item.hinhAnh}

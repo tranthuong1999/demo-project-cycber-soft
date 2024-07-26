@@ -11,12 +11,15 @@
 
     .course-popular {
         margin-top: 1.5rem !important;
-        display: flex;
-        justify-content: space-around;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 20px;
+        padding: 0 50px;
+
 
         &-tabnet {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
 

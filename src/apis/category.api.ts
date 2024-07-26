@@ -35,12 +35,27 @@ export const apiGetListCourse = async (props: { page: number, pageSize?: number,
         console.log("apiGetistCategory", error)
     }
 }
-// https://elearningnew.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=BackEnd&MaNhom=GP01
-
 
 export const apiFetchCourseByCategory = async (category: string) => {
     try {
         const response = await fetch(`${BASE_URL}/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${category}&MaNhom=GP01`, {
+            method: "GET",
+            headers: {
+                "Tokencybersoft": `${token}`,
+                "Content-Type": "application/json"
+            }
+        });
+        const data: any = await response.json();
+        return data;
+    }
+    catch (error) {
+        console.log("apiGetistCategory", error)
+    }
+}
+
+export const apiFetchListAllCourse = async () => {
+    try {
+        const response = await fetch(`${BASE_URL}/QuanLyKhoaHoc/LayDanhSachKhoaHoc`, {
             method: "GET",
             headers: {
                 "Tokencybersoft": `${token}`,

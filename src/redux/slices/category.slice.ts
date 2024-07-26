@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
-import { apiFetchCourseByCategory, apiGetListCourse, apiGetistCategory } from '../../apis/category.api';
+import { apiFetchCourseByCategory, apiFetchListAllCourse, apiGetListCourse, apiGetistCategory } from '../../apis/category.api';
 
 
 type category = {
@@ -11,14 +10,17 @@ interface CategoryState {
     listCategories: [],
     listCourse: any,
     listCourseByCategory: [],
-    currentCategory: category | null
+    currentCategory: category | null,
+    listAllCourse: []
 }
 
 const initialState: CategoryState = {
     listCategories: [],
     listCourse: [],
     listCourseByCategory: [],
-    currentCategory: null
+    currentCategory: null,
+    listAllCourse: []
+
 }
 
 class CategoryAsyncThunk {
@@ -38,13 +40,20 @@ class CategoryAsyncThunk {
         const result = await apiFetchCourseByCategory(category);
         return result;
     });
+
+    fetchListAllCategory = createAsyncThunk(`category/fetchListAllCategory`, async () => {
+        const result = await apiFetchListAllCourse();
+        return result;
+    });
 }
 
 const categoryAsyncThunk = new CategoryAsyncThunk();
 // action
 export const listCategory = categoryAsyncThunk.listCategory;
-export const fetchListCourse = categoryAsyncThunk.fetchListCourse
-export const fetchCourseByCategory = categoryAsyncThunk.fetchCourseByCategory
+export const fetchListCourse = categoryAsyncThunk.fetchListCourse;
+export const fetchCourseByCategory = categoryAsyncThunk.fetchCourseByCategory;
+export const fetchListAllCategory = categoryAsyncThunk.fetchListAllCategory;
+
 
 
 const categorySlice = createSlice({
@@ -65,6 +74,9 @@ const categorySlice = createSlice({
         });
         builder.addCase(fetchCourseByCategory.fulfilled, (state, action) => {
             state.listCourseByCategory = action.payload;
+        });
+        builder.addCase(fetchListAllCategory.fulfilled, (state, action) => {
+            state.listAllCourse = action.payload;
         });
     }
 })
