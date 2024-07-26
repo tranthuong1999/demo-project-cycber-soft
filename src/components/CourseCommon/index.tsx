@@ -3,10 +3,15 @@ import "./style.scss"
 import { Tooltip } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import classNames from 'classnames';
+import { useMediaQuery } from '@mui/material';
+import { useTheme } from "@mui/material/styles";
+
 
 const CourseCommonPage = (props: { image?: string, title?: string, header?: string, titleLike?: string }) => {
 
     const { image, title, header, titleLike } = props;
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down(600));
 
     const renderTitle = () => {
         return (
@@ -34,6 +39,7 @@ const CourseCommonPage = (props: { image?: string, title?: string, header?: stri
             classes={{ tooltip: 'custom-tooltip', arrow: 'custom-arrow' }}
             title={renderTitle()}
             placement='right-start'
+            disableHoverListener={isMobile ? true : false}
         >
             <div className='course-common'>
                 <div className='course-image'>
@@ -42,9 +48,9 @@ const CourseCommonPage = (props: { image?: string, title?: string, header?: stri
                 {titleLike && <p className='liker'>{titleLike}</p>}
                 <p className='title'>{title}</p>
                 <p className='header'> {header}</p>
-                <div className={classNames("icon-show-tooltip")}>
+                {!isMobile && <div className={classNames("icon-show-tooltip")}>
                     <ArrowForwardIosIcon sx={{ color: "grey" }} />
-                </div>
+                </div>}
                 <div className='detail-time'>
                     <p className='hour'><span><i className='far fa-clock iconOclock' /></span>8 giờ</p>
                     <p className='week'><span><i className='far fa-calendar-alt iconCalenda' /></span>4 tuần</p>
