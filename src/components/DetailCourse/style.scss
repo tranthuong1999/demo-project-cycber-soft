@@ -145,157 +145,17 @@
             font-size: 20px;
             margin-top: 48px;
         }
-
         .course-reference {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 1.5rem !important;
-
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px 10px;
+            padding: 0px 50px;
+            margin-bottom: 50px;
             &-tabnet {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
+                grid-template-columns: repeat(3, 1fr);
             }
-
             &-mobile {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-            }
-
-            .card-global {
-                position: relative;
-                display: flex;
-                flex-direction: column;
-                transition: all .5s;
-                width: 280px;
-                min-width: 280px;
-                min-height: 370px;
-                word-wrap: break-word;
-                background-color: #fff;
-                background-clip: border-box;
-                border: 1px solid rgba(0, 0, 0, .125);
-                box-shadow: 0 0 10px 4px rgba(0, 0, 0, .2);
-
-                &:hover {
-                    cursor: pointer;
-                }
-
-                .card-img {
-                    img {
-                        max-width: 100%;
-                        min-height: 185px;
-                        vertical-align: middle;
-                        border-style: none;
-                    }
-                }
-
-                .name {
-                    .sticker-card {
-                        display: inline-block;
-                        position: absolute;
-                        z-index: 10;
-                        top: 174px;
-                        padding: 0 10px;
-                        color: #fff;
-                        color: #fff;
-                        background-color: #41b294;
-                    }
-                }
-
-                .card-body {
-                    h6 {
-                        padding-top: 16px;
-                        font-size: 16px;
-                        font-weight: 700;
-                        list-style: 1.2;
-                        padding-bottom: 10px;
-                        margin: 0 16px;
-                    }
-
-                    .title-maker {
-                        display: flex;
-                        margin: 0 12px;
-                        justify-content: space-between;
-                    }
-                }
-
-                .card-footer {
-                    display: flex;
-                    margin: 0 12px;
-                    justify-content: space-between;
-                    align-items: center;
-
-                    &-left {
-                        img {
-                            max-width: 40px;
-                            min-height: 40px;
-                            vertical-align: middle;
-                            border-style: none;
-                            padding: 2px;
-                            border-color: #f6ba35 transparent;
-                            border-left: 1px solid transparent;
-                            border-bottom: 1px solid #f6ba35;
-                            border-right: 1px solid transparent;
-                            border-top: 1px solid #f6ba35;
-                            border-radius: 50%;
-                        }
-
-                    }
-
-                    &-right {
-                        .real-count {
-                            text-decoration: line-through;
-                            font-size: 12px;
-                            color: #8c8c8c;
-                        }
-
-                        .dist-count {
-                            font-weight: 600;
-                            color: #41b294;
-                        }
-
-                    }
-                }
-
-                .card-sale {
-                    position: absolute;
-                    top: 5px;
-                    left: -5px;
-                    width: 95px;
-                    height: 30px;
-                    padding: 5px 8px 4px;
-                    color: #fff;
-                    background-color: red;
-                    font-weight: 600;
-                    font-size: 13px;
-                    text-transform: uppercase;
-
-                    &::before {
-                        content: "";
-                        position: absolute;
-                        width: 0;
-                        height: 0;
-                        left: 0;
-                        bottom: -10px;
-                        border-bottom: 10px solid transparent;
-                        border-right: 10px solid red;
-                        -webkit-filter: brightness(.8);
-                        filter: brightness(.8);
-                    }
-
-                    &::after {
-                        content: "";
-                        position: absolute;
-                        width: 0;
-                        height: 0;
-                        top: 0;
-                        right: -12px;
-                        border-color: red transparent;
-                        border-style: solid;
-                        border-width: 15px 12px 15px 0;
-                    }
-                }
+                grid-template-columns: repeat(1, 1fr);
             }
         }
 
