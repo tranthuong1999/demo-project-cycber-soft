@@ -5,14 +5,12 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import classNames from 'classnames';
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from "@mui/material/styles";
-
-
-const CourseCommonPage = (props: { image?: string, title?: string, header?: string, titleLike?: string }) => {
-
-    const { image, title, header, titleLike } = props;
+import { useNavigate } from 'react-router-dom';
+const CourseCommonPage = (props: { image?: string, title?: string, header?: string, titleLike?: string, course_id?: number }) => {
+    const { image, title, header, titleLike, course_id } = props;
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down(600));
-
+    const navigate = useNavigate();
     const renderTitle = () => {
         return (
             <div className='tooltip-course'>
@@ -28,7 +26,7 @@ const CourseCommonPage = (props: { image?: string, title?: string, header?: stri
                     <p className='all'><span><i className='fas fa-signal iconLevel' /></span>Tất cả</p>
                 </div>
                 <div className='btn'>
-                    <button className='btn-detail'> Xem chi tiết</button>
+                    <button className='btn-detail' onClick={() => navigate(`/detail/${course_id}`)}> Xem chi tiết</button>
                 </div>
             </div>
         )
