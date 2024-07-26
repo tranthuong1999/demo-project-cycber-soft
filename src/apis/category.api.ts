@@ -19,7 +19,7 @@ export const apiGetistCategory = async () => {
     }
 }
 export const apiGetListCourse = async (props: { page: number, pageSize?: number, MaNhom?: string }) => {
-    const { page} = props;
+    const { page } = props;
     try {
         const response = await fetch(`https://elearningnew.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc_PhanTrang?page=${page}&pageSize=12&MaNhom=GP01`, {
             method: "GET",
@@ -35,6 +35,22 @@ export const apiGetListCourse = async (props: { page: number, pageSize?: number,
         console.log("apiGetistCategory", error)
     }
 }
+// https://elearningnew.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=BackEnd&MaNhom=GP01
 
 
-
+export const apiFetchCourseByCategory = async (category: string) => {
+    try {
+        const response = await fetch(`${BASE_URL}/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${category}&MaNhom=GP01`, {
+            method: "GET",
+            headers: {
+                "Tokencybersoft": `${token}`,
+                "Content-Type": "application/json"
+            }
+        });
+        const data: any = await response.json();
+        return data;
+    }
+    catch (error) {
+        console.log("apiGetistCategory", error)
+    }
+}

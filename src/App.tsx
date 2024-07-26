@@ -16,6 +16,8 @@ import DetailTotalCourse from './components/DetailTotalCourse';
 import BlogPage from './components/Blog';
 import EventPage from './components/Event';
 import InformationPage from './components/Information';
+import CourseCommonPage from './components/CourseCommon';
+import CourseByCategoryPage from './components/CourseByCatgory';
 
 function App() {
   const MainLayout = () => {
@@ -42,6 +44,8 @@ function App() {
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/event" element={<EventPage />} />
         <Route path="/information" element={<InformationPage />} />
+        <Route path="/course-by-category/:category" element={<CourseByCategoryPage />} />
+        {/* <Route path="/course-common" element={<CourseCommonPage />} /> */}
       </Routes>
       <Footer />
     </Router>

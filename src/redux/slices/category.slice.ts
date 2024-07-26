@@ -1,15 +1,24 @@
 import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { apiGetListCourse, apiGetistCategory } from '../../apis/category.api';
+import { apiFetchCourseByCategory, apiGetListCourse, apiGetistCategory } from '../../apis/category.api';
 
+
+type category = {
+    maDanhMuc: string,
+    tenDanhMuc: string
+}
 interface CategoryState {
     listCategories: [],
-    listCourse: any
+    listCourse: any,
+    listCourseByCategory: [],
+    currentCategory: category | null
 }
 
 const initialState: CategoryState = {
     listCategories: [],
-    listCourse: []
+    listCourse: [],
+    listCourseByCategory: [],
+    currentCategory: null
 }
 
 class CategoryAsyncThunk {
@@ -25,19 +34,28 @@ class CategoryAsyncThunk {
         return result;
     });
 
-
+    fetchCourseByCategory = createAsyncThunk(`category/fetchCourseByCategory`, async (category: string) => {
+        const result = await apiFetchCourseByCategory(category);
+        return result;
+    });
 }
 
 const categoryAsyncThunk = new CategoryAsyncThunk();
 // action
 export const listCategory = categoryAsyncThunk.listCategory;
 export const fetchListCourse = categoryAsyncThunk.fetchListCourse
+export const fetchCourseByCategory = categoryAsyncThunk.fetchCourseByCategory
 
 
 const categorySlice = createSlice({
     name: 'category',
     initialState,
-    reducers: {},
+    reducers: {
+        setCurrentCategory(state, action) {
+            state.currentCategory = action.payload;
+        }
+
+    },
     extraReducers: (builder) => {
         builder.addCase(listCategory.fulfilled, (state, action) => {
             state.listCategories = action.payload;
@@ -45,9 +63,12 @@ const categorySlice = createSlice({
         builder.addCase(fetchListCourse.fulfilled, (state, action) => {
             state.listCourse = action.payload;
         });
+        builder.addCase(fetchCourseByCategory.fulfilled, (state, action) => {
+            state.listCourseByCategory = action.payload;
+        });
     }
 })
 
-
+export const { setCurrentCategory } = categorySlice.actions;
 
 export default categorySlice.reducer

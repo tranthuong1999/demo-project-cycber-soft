@@ -7,7 +7,7 @@ import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 import { useTheme } from "@mui/material/styles"
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { listCategory } from '../../redux/slices/category.slice';
+import { listCategory, setCurrentCategory } from '../../redux/slices/category.slice';
 import { useNavigate } from 'react-router-dom';
 
 const itemEvent = [
@@ -62,7 +62,12 @@ const Appbar = () => {
                             {
                                 listCategories?.map((item: any) => {
                                     return (
-                                        <Button className='item-button'>
+                                        <Button
+                                            className='item-button'
+                                            onClick={() => {
+                                                dispatch(setCurrentCategory(item))
+                                                navigate(`/course-by-category/${item.maDanhMuc}`, { state: item })
+                                            }}>
                                             {item.tenDanhMuc}
                                         </Button>
                                     )
