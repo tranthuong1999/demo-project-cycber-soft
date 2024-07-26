@@ -8,6 +8,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import classNames from 'classnames';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { red } from '@mui/material/colors'
+import CourseCommonPage from '../CourseCommon'
 
 const DetailCourse = () => {
 
@@ -21,7 +22,7 @@ const DetailCourse = () => {
             <h6 className='name-course'> Khóa học phổ biến</h6>
             <div className={classNames("course-popular", isTabnet ? "course-popular-tabnet" : "", isMobile ? "course-popular-mobile" : "")}>
                 {
-                    data.slice(0, 4).map((item, index) => {
+                    data.slice(0, 5).map((item, index) => {
                         return (
                             <Card className='card-global'>
                                 <div className='card-img'>
@@ -62,53 +63,14 @@ const DetailCourse = () => {
                 <h6>Khóa học tham khảo</h6>
                 <div className={classNames("course-reference", isTabnet ? "course-reference-tabnet" : "", isMobile ? "course-reference-mobile" : "")}>
                     {
-                        data.slice(0, 4).map((item, index) => {
+                        data.slice(11,16).map((item: any, index: any) => {
                             return (
-                                <Card className='card-global'>
-                                    <div className='card-img'>
-                                        <img src={item.hinhAnh} />
-                                    </div>
-                                    <div className='name'>
-                                        <span className='sticker-card'>{item.tenKhoaHoc} </span>
-                                    </div>
-                                    <div className='card-body'>
-                                        <h6> Lập trình hiện đang là xu hướng trên toàn thế giới...</h6>
-                                        <div className='title-maker'>
-                                            <div>
-                                                <i className="far fa-clock iconOclock" style={{ color: "#f5c002", marginRight: "8px" }} /> 8 giờ
-                                            </div>
-                                            <div>
-                                                <i className="far fa-calendar-alt iconCalendar" style={{ color: "#f06f68", marginRight: "8px" }} />
-                                                4 tuần
-                                            </div>
-                                            <div>
-                                                <i className="fas fa-signal iconLevel" style={{ color: "#65c9ff", marginRight: "8px" }} />
-                                                Tất cả
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <Divider style={{ marginTop: "24px" }} />
-                                    <div className='card-footer'>
-                                        <div className='card-footer-left'>
-                                            <div className='img'>
-                                                <img src="https://demo2.cybersoft.edu.vn/static/media/avatar2.bb9626e2.png" />
-                                                <span style={{ marginLeft: '8px' }}>  Elon Musk</span>
-                                            </div>
-                                        </div>
-                                        <div className='card-footer-right'>
-                                            <p className='real-count'> 800.000<sup>đ</sup></p>
-                                            <p className='dist-count'>
-                                                400.000<sup>đ</sup>
-                                                <i className='fas fa-tag iconTag' style={{
-                                                    fontSize: '18px', color: "red", marginLeft: '4px'
-                                                }} />
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div className='card-sale'>
-                                        <span> Yêu thích</span>
-                                    </div>
-                                </Card>
+                                <CourseCommonPage
+                                    image={item.hinhAnh}
+                                    title={item.biDanh}
+                                    header="Lập trình hiện đang là xu hướng trên toàn thế giới"
+                                    titleLike='Yêu thích'
+                                />
                             )
                         })
                     }
@@ -119,53 +81,14 @@ const DetailCourse = () => {
                 <h6> Khóa học Front End React Js</h6>
                 <div className={classNames("course-reference", isTabnet ? "course-reference-tabnet" : "", isMobile ? "course-reference-mobile" : "")}>
                     {
-                        data.slice(0, 4).map((item, index) => {
+                        data.slice(6, 11).map((item: any, index: any) => {
                             return (
-                                <Card className='card-global'>
-                                    <div className='card-img'>
-                                        <img src={item.hinhAnh} />
-                                    </div>
-                                    <div className='name'>
-                                        <span className='sticker-card'>{item.tenKhoaHoc} </span>
-                                    </div>
-                                    <div className='card-body'>
-                                        <h6> Lập trình hiện đang là xu hướng trên toàn thế giới...</h6>
-                                        <div className='title-maker'>
-                                            <div>
-                                                <i className="far fa-clock iconOclock" style={{ color: "#f5c002", marginRight: "8px" }} /> 8 giờ
-                                            </div>
-                                            <div>
-                                                <i className="far fa-calendar-alt iconCalendar" style={{ color: "#f06f68", marginRight: "8px" }} />
-                                                4 tuần
-                                            </div>
-                                            <div>
-                                                <i className="fas fa-signal iconLevel" style={{ color: "#65c9ff", marginRight: "8px" }} />
-                                                Tất cả
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <Divider style={{ marginTop: "24px" }} />
-                                    <div className='card-footer'>
-                                        <div className='card-footer-left'>
-                                            <div className='img'>
-                                                <img src="https://demo2.cybersoft.edu.vn/static/media/avatar2.bb9626e2.png" />
-                                                <span style={{ marginLeft: '8px' }}>  Elon Musk</span>
-                                            </div>
-                                        </div>
-                                        <div className='card-footer-right'>
-                                            <p className='real-count'> 800.000<sup>đ</sup></p>
-                                            <p className='dist-count'> 400.000
-                                                <sup>đ</sup>
-                                                <i className='fas fa-tag iconTag' style={{
-                                                    fontSize: '18px', color: "red", marginLeft: '4px'
-                                                }} />
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div className='card-sale'>
-                                        <span> Yêu thích</span>
-                                    </div>
-                                </Card>
+                                <CourseCommonPage
+                                    image={item.hinhAnh}
+                                    title={item.biDanh}
+                                    header="Lập trình hiện đang là xu hướng trên toàn thế giới"
+                                    titleLike='Yêu thích'
+                                />
                             )
                         })
                     }
