@@ -3,7 +3,6 @@ import Appbar from './components/Appbar';
 import Banner from './components/Banner';
 import Course from './components/Course';
 import DetailCourse from './components/DetailCourse';
-// import Member from './components/Member';
 import Intructors from './components/Intructors';
 import Footer from './components/Footer';
 import BackTop from './components/BackTop';
@@ -16,13 +15,22 @@ import EventPage from './components/Event';
 import InformationPage from './components/Information';
 import CourseByCategoryPage from './components/CourseByCatgory';
 import { DetailCourseChildPage } from './components/DetailCourseChild';
-import React, { Suspense, lazy } from 'react';
-
+import React, { Suspense, lazy, useEffect } from 'react';
+import ProfilePage from './components/Profile';
+import { useAppDispatch } from './redux/hooks';
+import { listCategory } from './redux/slices/category.slice';
 
 const Member = lazy(() => import('./components/Member'));
 
-
 function App() {
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(listCategory())
+}, [])
+
+
   const MainLayout = () => {
     return (
       <Suspense fallback={<div>Loading...</div>}>
@@ -49,6 +57,7 @@ function App() {
         <Route path="/information" element={<InformationPage />} />
         <Route path="/course-by-category/:category" element={<CourseByCategoryPage />} />
         <Route path="/detail/:course_id" element={<DetailCourseChildPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
       <Footer />
     </Router>

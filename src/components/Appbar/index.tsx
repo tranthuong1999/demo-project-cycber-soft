@@ -26,9 +26,6 @@ const Appbar = () => {
     const { listCategories } = useAppSelector((state) => state.categoryReducer);
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        dispatch(listCategory())
-    }, [])
 
     const handleSearchOnFocus = () => {
         setIsFocused(true);
