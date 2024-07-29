@@ -40,7 +40,7 @@ const ProfilePage = () => {
 
     const renderProfile = () => {
         return (
-            <div className='block-2-profile'>
+            <div className={classNames("block-2-profile", isMobile ? "block-2-profile-mobile" : "")}>
                 {!isMobile ? renderAvartar() : ""}
                 <div className='block-2-right'>
                     <div className='block-2-top'>
@@ -63,7 +63,7 @@ const ProfilePage = () => {
 
                     <div>
                         <h2 style={{ margin: "30px 0px" }}>KĨ NĂNG CỦA TÔI</h2>
-                        <div className='block-2-bottom'>
+                        <div className={classNames("block-2-bottom", isMobile ? "block-2-bottom-mobile" : "")}>
                             <div className='block-2-bottom-left'>
                                 <div className='block-2-bottom-left-child'>
                                     <p className='html'>HTML</p>
@@ -139,11 +139,11 @@ const ProfilePage = () => {
                 <div className='block-2'>
                     <div className='block-2-top'>
                         <h1>KHÓA HỌC CỦA TÔI</h1>
-                        <p className='search'>
+                        {!isMobile && <p className='search'>
                             <input className="search-form" placeholder='Tìm kiếm' />
                         </p>
+                        }
                     </div>
-                    {/* <div className='block-2-bottom'> */}
                     <div className={classNames("block-2-bottom", isMobile ? "block-2-bottom-mobile" : "")}>
                         <div className='img-logo'>
                             <img src="https://elearningnew.cybersoft.edu.vn/hinhanh/lap-trinh-web-asp-net-2.jpg" />

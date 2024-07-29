@@ -101,6 +101,18 @@
                 align-items: center;
                 gap: 30px;
 
+                &-mobile {
+                    flex-direction: column;
+                    margin-top: 30px;
+                    width: 600px;
+                    max-width: 600px;
+                    align-items: flex-start;
+                    .desc{
+                        max-width: 450px !important;
+                        font-size: 14px !important;
+                    }
+                }
+
                 .img-logo {
                     img {
                         object-fit: fill;
@@ -212,6 +224,13 @@
         gap: 50px;
         padding: 50px 50px;
 
+        &-mobile {
+            .block-2-top {
+                flex-direction: column !important;
+                gap: 16px !important;
+            }
+        }
+
         .block-2-right {
             flex: 3;
 
@@ -257,6 +276,10 @@
             flex-direction: row;
             flex: 1;
             gap: 20px;
+
+            &-mobile {
+                flex-direction: column;
+            }
 
             &.block-2-bottom-mobile {
                 display: flex;
