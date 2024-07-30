@@ -40,6 +40,7 @@ const CourseByCategoryPage = () => {
                                 title={item.biDanh}
                                 header="Lập trình hiện đang là xu hướng trên toàn thế giới"
                                 titleLike='Yêu thích'
+                                course_id={item.maKhoaHoc}
                             />
                         )
                     })

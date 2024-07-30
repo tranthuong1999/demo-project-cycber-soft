@@ -20,7 +20,7 @@ const DetailCourse = () => {
     const { listAllCourse } = useAppSelector((state) => state.categoryReducer)
 
     useEffect(() => {
-       dispatch(fetchListAllCategory())
+        dispatch(fetchListAllCategory())
     }, [])
 
 
@@ -30,7 +30,7 @@ const DetailCourse = () => {
             <h6 className='name-course'> Khóa học phổ biến</h6>
             <div className={classNames("course-popular", isTabnet ? "course-popular-tabnet" : "", isMobile ? "course-popular-mobile" : "")}>
                 {
-                    data.slice(0,5).map((item:any, index) => {
+                    data.slice(0, 5).map((item: any, index) => {
                         return (
                             <Card className='card-global'>
                                 <div className='card-img'>
@@ -68,7 +68,7 @@ const DetailCourse = () => {
 
             {/* course tham khao */}
             <div className="all-course">
-                <h6 style={{ marginBottom:"20px"}}>Khóa học tham khảo</h6>
+                <h6 style={{ marginBottom: "20px" }}>Khóa học tham khảo</h6>
                 <div className={classNames("course-reference", isTabnet ? "course-reference-tabnet" : "", isMobile ? "course-reference-mobile" : "")}>
                     {
                         listAllCourse.slice(11, 16).map((item: any, index: any) => {
@@ -78,6 +78,7 @@ const DetailCourse = () => {
                                     title={item.biDanh}
                                     header="Lập trình hiện đang là xu hướng trên toàn thế giới"
                                     titleLike='Yêu thích'
+                                    course_id={item.maKhoaHoc}
                                 />
                             )
                         })
@@ -86,7 +87,7 @@ const DetailCourse = () => {
             </div>
             {/* course yeu thich */}
             <div className="all-course">
-                <h6 style={{ marginBottom:"20px"}}> Khóa học Front End React Js</h6>
+                <h6 style={{ marginBottom: "20px" }}> Khóa học Front End React Js</h6>
                 <div className={classNames("course-reference", isTabnet ? "course-reference-tabnet" : "", isMobile ? "course-reference-mobile" : "")}>
                     {
                         listAllCourse.slice(6, 11).map((item: any, index: any) => {
@@ -96,6 +97,7 @@ const DetailCourse = () => {
                                     title={item.biDanh}
                                     header="Lập trình hiện đang là xu hướng trên toàn thế giới"
                                     titleLike='Yêu thích'
+                                    course_id={item.maKhoaHoc}
                                 />
                             )
                         })

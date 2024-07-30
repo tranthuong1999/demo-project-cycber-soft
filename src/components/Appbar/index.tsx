@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import "./style.scss";
 import logo from '../../assets/logo.png'
 import classNames from "classnames";
-import { Button, Tooltip, useMediaQuery } from '@mui/material';
+import { Avatar, Button, Tooltip, useMediaQuery } from '@mui/material';
 import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 import { useTheme } from "@mui/material/styles"
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { listCategory, setCurrentCategory } from '../../redux/slices/category.slice';
 import { useNavigate } from 'react-router-dom';
+import { deepOrange } from '@mui/material/colors';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const itemEvent = [
     { name: "SỰ KIỆN SALE CUỐI NĂM", href: "" },
@@ -22,6 +24,7 @@ const Appbar = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down(750));
     const [isEffectMenu, setIsEffectMenu] = useState(false)
     const navigate = useNavigate();
+    const currentUSer = JSON.parse(localStorage.getItem("credential")!)
 
     const { listCategories } = useAppSelector((state) => state.categoryReducer);
     const dispatch = useAppDispatch();
@@ -34,7 +37,6 @@ const Appbar = () => {
     const handleSearchBlur = () => {
         setIsFocused(false);
     };
-
     return (
         <div className='app-bar'>
             <div className='header-left'>
@@ -110,9 +112,27 @@ const Appbar = () => {
                 </Tooltip>
             </div>}
             <div className='show-icon-header'>
-                <button className="login">
-                    <a> Đăng nhập</a>
-                </button>
+                {!currentUSer ?
+                    <button className="login" onClick={() => {
+                        navigate("/login")
+                        return;
+                    }}
+                    >
+                        Đăng nhập
+                    </button> :
+                    <div className='view-logout'>
+                        <Avatar onClick={() => navigate("/profile")} classes={{ root: "avatar-home" }} sx={{ bgcolor: deepOrange[500] }}>{currentUSer?.taiKhoan?.slice(0, 1)}</Avatar>
+                        <div className='icon-logout'>
+                            <Tooltip title="Logout" onClick={() => {
+                                localStorage.clear()
+                                navigate("/")
+                                return;
+                            }}>
+                                <LogoutIcon />
+                            </Tooltip>
+                        </div>
+                    </div>
+                }
                 {
                     !!isMobile
                     &&

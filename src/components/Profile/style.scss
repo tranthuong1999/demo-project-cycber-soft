@@ -107,7 +107,8 @@
                     width: 600px;
                     max-width: 600px;
                     align-items: flex-start;
-                    .desc{
+
+                    .desc {
                         max-width: 450px !important;
                         font-size: 14px !important;
                     }
@@ -215,6 +216,18 @@
         display: flex;
         justify-content: center;
         margin-top: 10px;
+
+        .tab-course.Mui-selected,
+        .tab-profile.Mui-selected {
+            background-color: #41b294;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .tab-course,
+        .tab-profile {
+            color: black;
+        }
     }
 
     .block-2-profile {

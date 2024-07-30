@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from 'react-router-dom';
-const CourseCommonPage = (props: { image?: string, title?: string, header?: string, titleLike?: string, course_id?: number }) => {
+const CourseCommonPage = (props: { image?: string, title?: string, header?: string, titleLike?: string, course_id?: string }) => {
     const { image, title, header, titleLike, course_id } = props;
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down(600));

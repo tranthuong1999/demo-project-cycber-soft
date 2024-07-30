@@ -177,7 +177,6 @@ export const DetailCourseChildPage = () => {
 
             <div className='block-3'>
                 <h5> Khoá học tham khảo</h5>
-                {/* <div className='list-course-reference'> */}
                 <div className={classNames("list-course-reference", isMobile ? "list-course-reference-mobile" : "", isTabnet ? "list-course-reference-tabnet" : "")}>
                     {
                         listAllCourse.slice(0, 5).map((item: any) => {
@@ -187,6 +186,7 @@ export const DetailCourseChildPage = () => {
                                     title={item.biDanh}
                                     header="Lập trình hiện đang là xu hướng trên toàn thế giới"
                                     titleLike='Yêu thích'
+                                    course_id={item.maKhoaHoc}
                                 />
                             )
                         })

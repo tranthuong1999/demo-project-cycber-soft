@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./style.scss";
 import { LinearProgress, Rating, Tab, Tabs } from '@mui/material';
 import img_profile from "../../assets/image-meta.jpg";
 import classNames from 'classnames';
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const data = [
     { title: "Giờ học", amount: "80", icon: "fas fa-user-clock" },
@@ -21,6 +22,15 @@ const ProfilePage = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down(600));
     const isTabnet = useMediaQuery(theme.breakpoints.between(600, 900));
     const [value, setValue] = React.useState('1');
+
+    const userInfor = localStorage.getItem("credential");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!JSON.parse(userInfor!)) {
+            navigate("/")
+        }
+    }, [])
 
     const renderAvartar = () => {
         return (

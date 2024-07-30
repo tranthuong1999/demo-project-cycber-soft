@@ -68,6 +68,34 @@
         gap: 5px;
         align-items: flex-start;
 
+        .view-logout {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            &:hover {
+                .icon-logout {
+                    opacity: 1;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .icon-logout {
+                opacity: 0;
+            }
+
+            .avatar-home {
+                text-transform: uppercase;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+
         .login {
             padding: 5px 10px;
             background-color: #f6ba35;

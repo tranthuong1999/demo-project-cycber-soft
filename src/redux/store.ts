@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import categorySlice from "./slices/category.slice";
-
+import authenticationSlice from "./slices/authentication.slice";
 
 const store = configureStore({
     reducer: {
-        categoryReducer: categorySlice
+        categoryReducer: categorySlice,
+        authenticationReducer: authenticationSlice
+
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false

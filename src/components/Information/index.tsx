@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './style.scss';
 import infor_1 from '../../assets/img-infor_1.png';
 import infor_2 from '../../assets/img-info-2.png';
@@ -22,6 +22,7 @@ const InformationPage = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down(600));
     const isTabnet = useMediaQuery(theme.breakpoints.between(600, 900));
+   
 
     return (
         <div className='information-page'>
