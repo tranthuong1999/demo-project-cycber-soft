@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
-import { Register, SignIn, apiLogin, apiRegister } from '../../apis/atuhtentication.api';
+import { Register, SignIn, apiFetchAccountInfor, apiLogin, apiRegister } from '../../apis/atuhtentication.api';
 
 const name = "authentication"
 
@@ -7,7 +7,8 @@ interface AuthenticationState {
     userInfor: {},
     isLogin: boolean | null,
     isRegister: boolean | null,
-    isModalLogin: boolean
+    isModalLogin: boolean,
+    accountImfor: {}
 
 }
 
@@ -15,7 +16,8 @@ const initialState: AuthenticationState = {
     userInfor: {},
     isLogin: null,
     isRegister: null,
-    isModalLogin: false
+    isModalLogin: false,
+    accountImfor: {}
 }
 
 class AuthenticationAsyncThunk {
@@ -29,6 +31,10 @@ class AuthenticationAsyncThunk {
         const result = await apiRegister({ data });
         return result;
     });
+    fetchAccountInfor = createAsyncThunk(`${name}/fetchAccountInfor`, async (taiKhoan: string) => {
+        const result = await apiFetchAccountInfor(taiKhoan);
+        return result;
+    });
     // TODO: Write new thunk here
 }
 
@@ -36,6 +42,8 @@ const authenticationAsyncThunk = new AuthenticationAsyncThunk();
 // action
 export const fetchLogin = authenticationAsyncThunk.fetchLogin;
 export const fetchRegister = authenticationAsyncThunk.fetchRegister;
+export const fetchAccountInfor = authenticationAsyncThunk.fetchAccountInfor;
+
 
 
 const authenticationSlice = createSlice({
@@ -59,6 +67,9 @@ const authenticationSlice = createSlice({
         });
         builder.addCase(fetchRegister.fulfilled, (state, action) => {
             state.isRegister = true
+        });
+        builder.addCase(fetchAccountInfor.fulfilled, (state, action) => {
+            state.accountImfor = action.payload;
         });
     }
 })

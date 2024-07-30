@@ -6,6 +6,8 @@ import classNames from 'classnames';
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { fetchAccountInfor } from '../../redux/slices/authentication.slice';
 
 const data = [
     { title: "Giờ học", amount: "80", icon: "fas fa-user-clock" },
@@ -23,13 +25,18 @@ const ProfilePage = () => {
     const isTabnet = useMediaQuery(theme.breakpoints.between(600, 900));
     const [value, setValue] = React.useState('1');
 
-    const userInfor = localStorage.getItem("credential");
+    const userInfor: any = localStorage.getItem("credential");
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const { accountImfor } = useAppSelector(state => state.authenticationReducer)
+
 
     useEffect(() => {
         if (!JSON.parse(userInfor!)) {
             navigate("/")
+            return;
         }
+        dispatch(fetchAccountInfor(userInfor?.taiKhoan))
     }, [])
 
     const renderAvartar = () => {
@@ -186,7 +193,7 @@ const ProfilePage = () => {
         )
     }
 
-
+    console.log("accountImfor", accountImfor)
 
     return (
         <div className='profile-page'>
@@ -214,3 +221,7 @@ const ProfilePage = () => {
 }
 
 export default ProfilePage
+
+function dispatch(arg0: any) {
+    throw new Error('Function not implemented.');
+}
