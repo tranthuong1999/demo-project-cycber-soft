@@ -240,7 +240,7 @@ const LoginPage = () => {
     const contenLogin = () => {
         return (
             <div className='render-form-login'>
-                <div><HelpOutlineIcon sx={{ width: 100, height: 100, color: "#ff000082" }} /> </div>
+                <div data-aos="flip-left"><HelpOutlineIcon sx={{ width: 100, height: 100, color: "#ff000082" }} /> </div>
                 <h1 className='title'>Tài khoản hoặc mật khẩu không đúng</h1>
                 <p className='desc'>Đã xảy ra lỗi vui lòng quay lại trang chủ hoặc thử lại</p>
             </div>
