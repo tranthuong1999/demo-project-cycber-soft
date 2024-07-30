@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./style.scss"
 import { Rating } from '@mui/material';
 import classNames from 'classnames';
@@ -6,21 +6,52 @@ import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from '@mui/material';
 import { data_lesson, data_couse_1, data_couse_2, data_couse_3 } from "./data";
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { fetchListAllCategory } from '../../redux/slices/category.slice';
+import { fetchDetailCourse, fetchListAllCategory } from '../../redux/slices/category.slice';
 import CourseCommonPage from '../CourseCommon';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { apiRegisterCourse } from '../../apis/category.api';
+import BasicModal from '../Modal';
+import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation';
 
 
 export const DetailCourseChildPage = () => {
-
-
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down(600));
     const isTabnet = useMediaQuery(theme.breakpoints.between(600, 900));
     const dispatch = useAppDispatch()
-    const { listAllCourse } = useAppSelector((state) => state.categoryReducer)
+    const { listAllCourse, detailCourse } = useAppSelector((state) => state.categoryReducer)
+    const userInfor: any = JSON.parse(localStorage.getItem("credential")!)
+    const navigate = useNavigate();
+    const [isModalRegisterCourse, setIsModalRegisterCourse] = useState(false);
+
+    const { state } = useLocation();
     useEffect(() => {
         dispatch(fetchListAllCategory());
     }, [])
+
+    useEffect(() => {
+        dispatch(fetchDetailCourse(state?.maKhoaHoc))
+    }, [state])
+
+    const handleRegisterCourse = async () => {
+        if (!userInfor) {
+            navigate("/login")
+            return;
+        }
+        apiRegisterCourse(state?.maKhoaHoc, userInfor?.taiKhoan)
+            .then((result) => setIsModalRegisterCourse(true))
+            .catch((error) => {
+                console.log("error", error)
+            })
+    }
+    const renderContent = () => {
+        return (
+            <div style={{ display: 'flex', flexDirection: "column", gap: "10px", alignItems: 'center', justifyContent: 'center' }}>
+                <div data-aos="flip-left"><PermDeviceInformationIcon sx={{ width: 80, height: 80 , color:"green" }} /> </div>
+                <h1 style={{ color: "#41b294" }}> Đăng kí thành công</h1>
+            </div>
+        )
+    }
 
     return (
         <div className='detail-course-child-page'>
@@ -31,7 +62,7 @@ export const DetailCourseChildPage = () => {
 
             <div className={classNames("block-2", isMobile ? "block-2-mobile" : "", isTabnet ? "block-2-tabnet" : "")}>
                 <div className='block-2-child-1'>
-                    <p className='name'>lập trình elearing 2</p>
+                    <p className='name'>{detailCourse?.tenKhoaHoc}</p>
                     <div className={classNames("overview", (isTabnet || isMobile) ? "overview-small" : "")}>
                         <div className='overview-1'>
                             <div className='img-logo'>
@@ -142,11 +173,16 @@ export const DetailCourseChildPage = () => {
 
                 <div className='block-2-child-2'>
                     <div className='img-logo'>
-                        <img src="https://elearningnew.cybersoft.edu.vn/hinhanh/lap-trinh-elearing-2_gp01.jpg" />
+                        <img src={detailCourse?.hinhAnh} />
                     </div>
                     <p className='price'><i className='fas fa-bolt' />500.000<sup>đ</sup></p>
                     <div className='button'>
-                        <button className='btn-register'>Đăng ký</button>
+                        <button
+                            className='btn-register'
+                            onClick={() => handleRegisterCourse()}
+                        >
+                            Đăng ký
+                        </button>
                     </div>
                     <div className='detail'>
                         <p>Ghi danh: <span>10 học viên </span> </p>
@@ -195,6 +231,14 @@ export const DetailCourseChildPage = () => {
 
                 </div>
             </div>
+            {
+                isModalRegisterCourse &&
+                <BasicModal
+                    open={isModalRegisterCourse}
+                    onClose={() => setIsModalRegisterCourse(false)}
+                    content={renderContent()}
+                />
+            }
         </div>
     )
 }

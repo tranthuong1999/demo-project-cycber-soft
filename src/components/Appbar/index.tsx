@@ -121,7 +121,7 @@ const Appbar = () => {
                         Đăng nhập
                     </button> :
                     <div className='view-logout'>
-                        <Avatar onClick={() => navigate("/profile")} classes={{ root: "avatar-home" }} sx={{ bgcolor: deepOrange[500] }}>{currentUSer?.taiKhoan?.slice(0, 1)}</Avatar>
+                        <Avatar onClick={() => navigate("/profile")} classes={{ root: "avatar-home" }} sx={{ bgcolor: deepOrange[500] }}>{currentUSer?.taiKhoan?.slice(0, 1) || ""}</Avatar>
                         <div className='icon-logout'>
                             <Tooltip title="Logout" onClick={() => {
                                 localStorage.clear()

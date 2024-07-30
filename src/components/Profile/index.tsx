@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./style.scss";
 import { LinearProgress, Rating, Tab, Tabs } from '@mui/material';
 import img_profile from "../../assets/image-meta.jpg";
@@ -7,7 +7,7 @@ import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { fetchAccountInfor } from '../../redux/slices/authentication.slice';
+import { fetchAccountInfor, fetchDeleteCourse } from '../../redux/slices/authentication.slice';
 
 const data = [
     { title: "Giờ học", amount: "80", icon: "fas fa-user-clock" },
@@ -24,20 +24,27 @@ const ProfilePage = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down(600));
     const isTabnet = useMediaQuery(theme.breakpoints.between(600, 900));
     const [value, setValue] = React.useState('1');
+    const [searchCourse, setSearchCourse] = useState('');
 
-    const userInfor: any = localStorage.getItem("credential");
+    const userInfor: any = JSON.parse(localStorage.getItem("credential")!);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const { accountImfor } = useAppSelector(state => state.authenticationReducer)
-
+    const { accountInfor } = useAppSelector(state => state.authenticationReducer)
 
     useEffect(() => {
-        if (!JSON.parse(userInfor!)) {
+        if (!userInfor) {
             navigate("/")
             return;
         }
         dispatch(fetchAccountInfor(userInfor?.taiKhoan))
     }, [])
+
+    const handleDeleteCourse = (item: any) => {
+        console.log("item", item)
+        console.log("taikhaong", { taiKhoan: userInfor?.taiKhoan })
+
+        dispatch(fetchDeleteCourse({ maKhoaHoc: item.maKhoaHoc, taiKhoan: userInfor?.taiKhoan }))
+    }
 
     const renderAvartar = () => {
         return (
@@ -45,7 +52,7 @@ const ProfilePage = () => {
                 <div className='img-logo'>
                     <img src="https://cdn.dribbble.com/users/2364329/screenshots/6676961/02.jpg?compress=1&resize=800x600" />
                 </div>
-                <p className='name'> Robert Nguyễn</p>
+                <p className='name'>{accountInfor.hoTen}</p>
                 <p className='title-program'> Lập trình viên Front-end</p>
                 <div>
                     <button className='btn-profile'>Hồ sơ cá nhân</button>
@@ -62,14 +69,14 @@ const ProfilePage = () => {
                 <div className='block-2-right'>
                     <div className='block-2-top'>
                         <div className='block-2-top-left'>
-                            <p className='name-desc'><span>Email: </span>tranthuongpro99@gmail.com</p>
-                            <p className='name-desc'><span>Họ và tên: </span>tranthuong</p>
-                            <p className='name-desc'><span>Số điện thoại: </span>0963870992</p>
+                            <p className='name-desc'><span>Email: </span>{accountInfor.email}</p>
+                            <p className='name-desc'><span>Họ và tên: </span>{accountInfor.hoTen}</p>
+                            <p className='name-desc'><span>Số điện thoại: </span>{accountInfor.soDT}</p>
                         </div>
 
                         <div className='block-2-top-left'>
-                            <p className='name-desc'><span>Tài khoản: </span>tranthuong</p>
-                            <p className='name-desc'><span>Nhóm: </span>GP02</p>
+                            <p className='name-desc'><span>Tài khoản: </span>{accountInfor.taiKhoan}</p>
+                            <p className='name-desc'><span>Nhóm: </span>{accountInfor.maNhom}</p>
                             <p className='name-desc'><span>Đối tượng: </span>Học viên</p>
                             <div>
                                 <button className='btn-update'>Câp nhật</button>
@@ -157,43 +164,64 @@ const ProfilePage = () => {
                     <div className='block-2-top'>
                         <h1>KHÓA HỌC CỦA TÔI</h1>
                         {!isMobile && <p className='search'>
-                            <input className="search-form" placeholder='Tìm kiếm' />
+                            <input onChange={(e: any) => {
+                                setSearchCourse(e.target.value)
+                            }}
+                                className="search-form"
+                                placeholder='Tìm kiếm'
+                            />
                         </p>
                         }
                     </div>
-                    <div className={classNames("block-2-bottom", isMobile ? "block-2-bottom-mobile" : "")}>
-                        <div className='img-logo'>
-                            <img src="https://elearningnew.cybersoft.edu.vn/hinhanh/lap-trinh-web-asp-net-2.jpg" />
-                        </div>
-                        <div className='block-2-bottom-child'>
-                            <h3 className='name'>Lập Trình Web ASP.NET 2</h3>
-                            <p className='desc'>ES6 là một chuẩn Javascript mới được đưa ra vào năm 2015 với nhiều quy tắc và cách sử dụng khác nhau.</p>
-                            <div className='date'>
-                                <p className='hour-1'> <i className='far fa-clock iconOclock' />8 giờ</p>
-                                <p className='hour-2'> <i className='far fa-calendar iconCalendar' /> 23 giờ</p>
-                                <p className='level'> <i className='fas fa-signal iconLevel ' /> All level</p>
-                            </div>
-                            <div>
-                                <Rating name="read-only" value={5} readOnly />
-                            </div>
-                            <div className='child-bottom'>
-                                <p className="name-present">
-                                    <img src={img_profile} />
-                                    Nguyễn Nam
-                                </p>
-                                <div>
-                                    <button className="btn-cancel"> Huỷ khoá học</button>
-                                </div>
-                            </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+                        {
+                            // searchCourse.trim().length > 0 ? (accountInfor?.chiTietKhoaHocGhiDanh?.filter((course: any) => course?.tenKhoaHoc.toLowerCase().includes(searchCourse.toLowerCase()))) :
+                            (accountInfor?.chiTietKhoaHocGhiDanh)?.map((item: any, index: number) => {
+                                return (
+                                    <div key={index} className={classNames("block-2-bottom", isMobile ? "block-2-bottom-mobile" : "")}>
+                                        <div className='img-logo'>
+                                            <img src={item?.hinhAnh} />
+                                        </div>
 
-                        </div>
+                                        <div className='block-2-bottom-child'>
+                                            <h3 className='name'>{item?.tenKhoaHoc}</h3>
+                                            <p className='desc'>ES6 là một chuẩn Javascript mới được đưa ra vào năm 2015 với nhiều quy tắc và cách sử dụng khác nhau.</p>
+                                            <div className='date'>
+                                                <p className='hour-1'> <i className='far fa-clock iconOclock' />8 giờ</p>
+                                                <p className='hour-2'> <i className='far fa-calendar iconCalendar' /> 23 giờ</p>
+                                                <p className='level'> <i className='fas fa-signal iconLevel ' /> All level</p>
+                                            </div>
+                                            <div>
+                                                <Rating name="read-only" value={5} readOnly />
+                                            </div>
+                                            <div className='child-bottom'>
+                                                <p className="name-present">
+                                                    <img src={img_profile} />
+                                                    Nguyễn Nam
+                                                </p>
+                                                <div>
+                                                    <button
+                                                        onClick={() => handleDeleteCourse(item)}
+                                                        className="btn-cancel"
+                                                    >
+                                                        Huỷ khoá học
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
                     </div>
                 </div>
             </div>
         )
     }
 
-    console.log("accountImfor", accountImfor)
+    const check = (accountInfor?.chiTietKhoaHocGhiDanh?.filter((course: any) => course?.tenKhoaHoc.toLowerCase().includes(searchCourse.toLowerCase())))
+
+    console.log("accountInfor", check)
 
     return (
         <div className='profile-page'>

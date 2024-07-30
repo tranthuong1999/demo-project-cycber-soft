@@ -181,11 +181,6 @@
 
 
         }
-
-
-
-
-
         .block-2-child-2 {
             flex: 1;
             display: flex;
@@ -199,6 +194,10 @@
             .img-logo {
                 display: flex;
                 justify-content: center;
+                img{
+                    width: 150px;
+                    height: 150px;
+                }
             }
 
             .price {

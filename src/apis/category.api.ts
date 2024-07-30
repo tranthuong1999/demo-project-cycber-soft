@@ -69,3 +69,65 @@ export const apiFetchListAllCourse = async () => {
         console.log("apiGetistCategory", error)
     }
 }
+
+export const apiDeleteCourse = async (maKhoaHoc: string, taiKhoan: string) => {
+    const _token = JSON.parse(localStorage.getItem("credential")!).accessToken
+    console.log("maKhoaHoc", maKhoaHoc)
+    console.log("taiKhoan", taiKhoan)
+
+    try {
+        const response = await fetch(`${BASE_URL}/QuanLyKhoaHoc/HuyGhiDanh`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${_token}`,
+                "Tokencybersoft": `${token}`,
+            },
+            body: JSON.stringify({ maKhoaHoc, taiKhoan })
+        });
+        const result: any = await response.json();
+        return result;
+    }
+    catch (error) {
+        console.log("apiDeleteCourse", error)
+    }
+}
+
+export const apiDetailCourse = async (maKhoaHoc: string) => {
+    const _token = JSON.parse(localStorage.getItem("credential")!).accessToken
+    try {
+        const response = await fetch(`${BASE_URL}/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${maKhoaHoc}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Tokencybersoft": `${token}`,
+                "Authorization": `Bearer ${_token}`,
+            }
+        });
+        const result: any = await response.json();
+        return result;
+    }
+    catch (error) {
+        console.log("apiDetailCourse", error)
+    }
+}
+
+export const apiRegisterCourse = async (maKhoaHoc: string, taiKhoan: string) => {
+    const _token = JSON.parse(localStorage.getItem("credential")!).accessToken
+    try {
+        const response = await fetch(`${BASE_URL}/QuanLyKhoaHoc/DangKyKhoaHoc`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${_token}`,
+                "Tokencybersoft": `${token}`,
+            },
+            body: JSON.stringify({ maKhoaHoc, taiKhoan })
+        });
+        const result: any = await response.json();
+        return result;
+    }
+    catch (error) {
+        console.log("apiRegisterCourse", error)
+    }
+}

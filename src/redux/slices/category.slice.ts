@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
-import { apiFetchCourseByCategory, apiFetchListAllCourse, apiGetListCourse, apiGetistCategory } from '../../apis/category.api';
+import { apiDetailCourse, apiFetchCourseByCategory, apiFetchListAllCourse, apiGetListCourse, apiGetistCategory } from '../../apis/category.api';
 
 
 type category = {
@@ -11,7 +11,8 @@ interface CategoryState {
     listCourse: any,
     listCourseByCategory: [],
     currentCategory: category | null,
-    listAllCourse: []
+    listAllCourse: [],
+    detailCourse: any
 }
 
 const initialState: CategoryState = {
@@ -19,7 +20,8 @@ const initialState: CategoryState = {
     listCourse: [],
     listCourseByCategory: [],
     currentCategory: null,
-    listAllCourse: []
+    listAllCourse: [],
+    detailCourse: {}
 
 }
 
@@ -45,6 +47,11 @@ class CategoryAsyncThunk {
         const result = await apiFetchListAllCourse();
         return result;
     });
+    fetchDetailCourse = createAsyncThunk(`category/fetchDetailCourse`, async (maKhoaHoc: string) => {
+        const result = await apiDetailCourse(maKhoaHoc);
+        return result;
+    });
+
 }
 
 const categoryAsyncThunk = new CategoryAsyncThunk();
@@ -53,8 +60,7 @@ export const listCategory = categoryAsyncThunk.listCategory;
 export const fetchListCourse = categoryAsyncThunk.fetchListCourse;
 export const fetchCourseByCategory = categoryAsyncThunk.fetchCourseByCategory;
 export const fetchListAllCategory = categoryAsyncThunk.fetchListAllCategory;
-
-
+export const fetchDetailCourse = categoryAsyncThunk.fetchDetailCourse;
 
 const categorySlice = createSlice({
     name: 'category',
@@ -77,6 +83,9 @@ const categorySlice = createSlice({
         });
         builder.addCase(fetchListAllCategory.fulfilled, (state, action) => {
             state.listAllCourse = action.payload;
+        });
+        builder.addCase(fetchDetailCourse.fulfilled, (state, action) => {
+            state.detailCourse = action.payload;
         });
     }
 })

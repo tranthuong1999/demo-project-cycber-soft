@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { useSelector } from 'react-redux'
 import { fetchListAllCategory } from '../../redux/slices/category.slice'
 import { data } from './data';
+import { useNavigate } from 'react-router-dom';
 
 const DetailCourse = () => {
 
@@ -18,6 +19,7 @@ const DetailCourse = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down(770));
     const dispatch = useAppDispatch();
     const { listAllCourse } = useAppSelector((state) => state.categoryReducer)
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(fetchListAllCategory())
@@ -32,7 +34,7 @@ const DetailCourse = () => {
                 {
                     data.slice(0, 5).map((item: any, index) => {
                         return (
-                            <Card className='card-global'>
+                            <Card className='card-global' onClick={() => navigate(`/detail/${item.maKhoaHoc}`, { state: item })}>
                                 <div className='card-img'>
                                     <img src={item.hinhAnh} />
                                 </div>

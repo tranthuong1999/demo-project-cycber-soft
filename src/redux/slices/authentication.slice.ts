@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
 import { Register, SignIn, apiFetchAccountInfor, apiLogin, apiRegister } from '../../apis/atuhtentication.api';
+import { apiDeleteCourse } from '../../apis/category.api';
 
 const name = "authentication"
 
@@ -8,7 +9,7 @@ interface AuthenticationState {
     isLogin: boolean | null,
     isRegister: boolean | null,
     isModalLogin: boolean,
-    accountImfor: {}
+    accountInfor: any
 
 }
 
@@ -17,7 +18,7 @@ const initialState: AuthenticationState = {
     isLogin: null,
     isRegister: null,
     isModalLogin: false,
-    accountImfor: {}
+    accountInfor: {}
 }
 
 class AuthenticationAsyncThunk {
@@ -36,6 +37,11 @@ class AuthenticationAsyncThunk {
         return result;
     });
     // TODO: Write new thunk here
+    fetchDeleteCourse = createAsyncThunk(`category/fetchDeleteCourse`, async (props: { maKhoaHoc: string, taiKhoan: string }) => {
+        const { maKhoaHoc, taiKhoan } = props;
+        const result = await apiDeleteCourse(maKhoaHoc, taiKhoan);
+        return result;
+    });
 }
 
 const authenticationAsyncThunk = new AuthenticationAsyncThunk();
@@ -43,8 +49,7 @@ const authenticationAsyncThunk = new AuthenticationAsyncThunk();
 export const fetchLogin = authenticationAsyncThunk.fetchLogin;
 export const fetchRegister = authenticationAsyncThunk.fetchRegister;
 export const fetchAccountInfor = authenticationAsyncThunk.fetchAccountInfor;
-
-
+export const fetchDeleteCourse = authenticationAsyncThunk.fetchDeleteCourse;
 
 const authenticationSlice = createSlice({
     name,
@@ -57,7 +62,6 @@ const authenticationSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchLogin.fulfilled, (state, action) => {
-            console.log("fetchLogin.fulfilled", state, action)
             if (action.payload.accessToken) {
                 state.userInfor = action.payload;
                 state.isLogin = true
@@ -69,8 +73,15 @@ const authenticationSlice = createSlice({
             state.isRegister = true
         });
         builder.addCase(fetchAccountInfor.fulfilled, (state, action) => {
-            state.accountImfor = action.payload;
+            state.accountInfor = action.payload;
         });
+        builder.addCase(fetchDeleteCourse.fulfilled, (state, action) => {
+            state.accountInfor = {
+                ...state.accountInfor,
+                chiTietKhoaHocGhiDanh: state.accountInfor.chiTietKhoaHocGhiDanh.filter((item: any) => item.maKhoaHoc !== action.meta.arg.maKhoaHoc)
+            }
+        });
+
     }
 })
 

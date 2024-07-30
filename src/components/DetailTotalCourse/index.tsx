@@ -5,6 +5,7 @@ import { useTheme } from "@mui/material/styles";
 import { Pagination, useMediaQuery } from "@mui/material";
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchListCourse } from '../../redux/slices/category.slice';
+import { useNavigate } from 'react-router-dom';
 
 const data = [
     { title: "CHƯƠNG TRÌNH HỌC", amount: 300, icon: "fas fa-laptop" },
@@ -21,7 +22,7 @@ const DetailTotalCourse = () => {
     const isTabnetSmall = useMediaQuery(theme.breakpoints.between(600, 930));
     const isMobile = useMediaQuery(theme.breakpoints.down(600));
     const isTabnet = useMediaQuery(theme.breakpoints.between(930, 1200));
-
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { listCourse } = useAppSelector((state) => state.categoryReducer);
 
@@ -55,7 +56,10 @@ const DetailTotalCourse = () => {
                     {
                         listCourse?.items?.map((item: any) => {
                             return (
-                                <div className={classNames("course-total")}>
+                                <div
+                                    className={classNames("course-total")}
+                                    onClick={() => navigate(`/detail/${item.maKhoaHoc}`, { state: item })}
+                                >
                                     <div className='image-course'>
                                         <img src={item.hinhAnh} />
                                     </div>
@@ -84,7 +88,6 @@ const DetailTotalCourse = () => {
                     count={listCourse.totalPages}
                     color="primary"
                     onChange={(e: any, page) => {
-                        console.log("page change", page)
                         dispatch(fetchListCourse({ page: page }))
                     }}
                 />

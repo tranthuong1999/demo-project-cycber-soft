@@ -6,8 +6,10 @@ import store from "./redux/store";
 import { Provider } from "react-redux";
 import { CssBaseline } from "@mui/material";
 import "./App.scss"
-
-
+// @ts-ignore
+import AOS from 'aos';
+import 'aos/dist/aos.css'
+AOS.init();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
