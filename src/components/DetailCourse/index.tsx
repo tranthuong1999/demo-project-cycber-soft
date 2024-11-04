@@ -7,7 +7,6 @@ import classNames from 'classnames';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import CourseCommonPage from '../CourseCommon'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { useSelector } from 'react-redux'
 import { fetchListAllCategory } from '../../redux/slices/category.slice'
 import { data } from './data';
 import { useNavigate } from 'react-router-dom';
