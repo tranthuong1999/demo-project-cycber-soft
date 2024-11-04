@@ -12,14 +12,32 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 1400px;
-    min-height: 800px;
+    width: 90vw;
+    height: 80vh;
     display: flex;
-    border-radius: 8px;
+    border-radius: 16px;
     flex: 1;
     outline: 0;
     border: null;
     box-shadow: 0 14px 28px rgba(0, 0, 0, .2), 0 10px 10px rgba(0, 0, 0, .2);
+
+    .field {
+        width: 100%;
+        padding: 10px 15px;
+        background-color: #eee;
+        border: none;
+
+        .field-check {
+            width: 100%;
+            background-color: #eee;
+
+            .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+                border-color: #41b294;
+            }
+        }
+    }
+
+    ;
 
     .block-1 {
         flex: 1;
@@ -31,22 +49,45 @@
         padding: 0 20px;
         background-color: #fff;
 
+        .form-login {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+
+            .error-message {
+                text-align: left;
+                color: rgba(240, 23, 23, .835);
+                width: 100%;
+                font-size: 15px;
+                margin-top: 4px;
+            }
+
+            .btn-login {
+                display: flex;
+                justify-content: center;
+
+                button {
+                    border-radius: 20px;
+                    border: 1px solid #36867b;
+                    background: #36867b;
+                    color: #fff;
+                    font-size: 12px;
+                    font-weight: 700;
+                    padding: 12px 45px;
+                    letter-spacing: 1px;
+                    text-transform: uppercase;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
         .desc {
             color: #252525;
             margin-bottom: 10px;
-        }
-
-        .field {
-            width: 100%;
-
-            .field-check {
-                width: 100%;
-                background-color: #eee;
-
-                .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-                    border-color: #41b294;
-                }
-            }
         }
 
         .field-pass {
@@ -61,24 +102,6 @@
                 margin: 15px 0;
                 border: none;
                 background-color: #fff;
-            }
-        }
-
-        .btn-login {
-            button {
-                border-radius: 20px;
-                border: 1px solid #36867b;
-                background: #36867b;
-                color: #fff;
-                font-size: 12px;
-                font-weight: 700;
-                padding: 12px 45px;
-                letter-spacing: 1px;
-                text-transform: uppercase;
-
-                &:hover {
-                    cursor: pointer;
-                }
             }
         }
     }
@@ -122,6 +145,18 @@
         background-size: cover;
         color: #fff;
 
+        &.block-3-tabnet {
+            h1 {
+                font-size: 20px;
+            }
+
+            p {
+                font-size: 14px;
+                max-width: 200px;
+            }
+        }
+
+
         .btn-login {
             border-radius: 20px;
             border: 1px solid #36867b;
@@ -140,6 +175,7 @@
         }
     }
 
+
     .block-4 {
         flex: 1;
         display: flex;
@@ -153,35 +189,43 @@
             margin-top: 10px;
         }
 
-        .field {
-            width: 100%;
+        .form-register {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
 
-            .field-check {
+            .error-message {
+                text-align: left;
+                color: rgba(240, 23, 23, .835);
                 width: 100%;
-                background-color: #eee;
+                font-size: 15px;
+                margin-top: 4px;
+            }
+        }
 
-                .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-                    border-color: #41b294;
+        .btn-form {
+            display: flex;
+            justify-content: center;
+
+            .btn-register {
+                border-radius: 20px;
+                border: 1px solid #36867b;
+                background: #36867b;
+                color: #fff;
+                font-size: 12px;
+                font-weight: 700;
+                padding: 12px 45px;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                margin-top: 15px;
+
+                &:hover {
+                    cursor: pointer;
                 }
             }
         }
 
-        .btn-register {
-            border-radius: 20px;
-            border: 1px solid #36867b;
-            background: #36867b;
-            color: #fff;
-            font-size: 12px;
-            font-weight: 700;
-            padding: 12px 45px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-top: 15px;
 
-            &:hover {
-                cursor: pointer;
-            }
-        }
     }
 }
 
@@ -190,14 +234,10 @@
     flex-direction: column;
     gap: 10px;
     align-items: center;
-
     .title {
         color: #41b294
     }
-
     .desc {
         font-weight: bold;
     }
-
-    .desc {}
 }
