@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { Register, SignIn, apiFetchAccountInfor, apiLogin, apiRegister } from '../../apis/atuhtentication.api';
 import { apiDeleteCourse } from '../../apis/category.api';
 
@@ -9,6 +9,7 @@ interface AuthenticationState {
     isLogin: boolean | null,
     isRegister: boolean | null,
     isModalLogin: boolean,
+    isModalRegister: boolean,
     accountInfor: any
 
 }
@@ -18,6 +19,7 @@ const initialState: AuthenticationState = {
     isLogin: null,
     isRegister: null,
     isModalLogin: false,
+    isModalRegister: false,
     accountInfor: {}
 }
 
@@ -56,9 +58,11 @@ const authenticationSlice = createSlice({
     initialState,
     reducers: {
         setModalLogin(state, action) {
-            state.isModalLogin = action.payload;
+            state.isModalLogin = action.payload
+        },
+        setModalRegister(state, action) {
+            state.isModalRegister = action.payload
         }
-
     },
     extraReducers: (builder) => {
         builder.addCase(fetchLogin.fulfilled, (state, action) => {
@@ -71,8 +75,13 @@ const authenticationSlice = createSlice({
         });
         builder
             .addCase(fetchRegister.fulfilled, (state, action) => {
-                console.log("action register failed", action)
-                state.isRegister = true
+                state.isModalRegister = true;
+                if (action.payload.message) {
+                    state.isRegister = false
+                }
+                else {
+                    state.isRegister = true;
+                }
             })
         builder.addCase(fetchAccountInfor.fulfilled, (state, action) => {
             state.accountInfor = action.payload;
@@ -87,6 +96,6 @@ const authenticationSlice = createSlice({
     }
 })
 
-export const { setModalLogin } = authenticationSlice.actions;
+export const { setModalLogin, setModalRegister } = authenticationSlice.actions;
 
 export default authenticationSlice.reducer

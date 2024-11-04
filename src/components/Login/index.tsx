@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import "./style.scss";
-import { Box, Modal, TextField } from '@mui/material';
+import { Modal } from '@mui/material';
 import classNames from 'classnames';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { fetchLogin, fetchRegister, setModalLogin } from '../../redux/slices/authentication.slice';
+import { fetchLogin, fetchRegister, setModalLogin, setModalRegister } from '../../redux/slices/authentication.slice';
 import { useNavigate } from 'react-router-dom';
 import BasicModal from '../Modal';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+// import {HelpOutlineIcon} from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useTheme } from "@mui/material/styles"
 import { useMediaQuery } from '@mui/material';
+import DownloadDoneIcon from '@mui/icons-material/DownloadDone';
+
 
 
 const schema = Yup.object().shape({
@@ -49,19 +51,30 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const theme = useTheme();
     const dispatch = useAppDispatch();
-    const { isLogin, isModalLogin, isRegister } = useAppSelector((state) => state.authenticationReducer);
+    const { isLogin, isModalLogin, isRegister, isModalRegister } = useAppSelector((state) => state.authenticationReducer);
 
     const isMobile = useMediaQuery(theme.breakpoints.down(800));
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, reset: resetRegister, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
 
-    const { register: registerLogin, handleSubmit: handleSubmitLogin, formState: { errors: errorsLogin } } = useForm({
+    const { register: registerLogin, reset: resetLogin, handleSubmit: handleSubmitLogin, formState: { errors: errorsLogin } } = useForm({
         resolver: yupResolver(schema_login),
     });
 
     const onSubmit = (data: any) => {
-        dispatch(fetchRegister({ data }))
+        const { email, account, name, phone, password } = data;
+        dispatch(fetchRegister({
+            data: {
+                email: email,
+                hoTen: name,
+                matKhau: password,
+                soDT: phone,
+                taiKhoan: account,
+                maNhom: value
+            }
+        }))
+
     };
 
     const onLoginSubmit = (data: any) => {
@@ -72,6 +85,11 @@ const LoginPage = () => {
             }
         }))
     };
+    useEffect(() => {
+        if (isRegister) {
+            resetRegister();
+        }
+    }, [isRegister])
 
     useEffect(() => {
         if (isLogin) {
@@ -188,14 +206,32 @@ const LoginPage = () => {
             </>
         )
     }
-    console.log("isRegister", isRegister)
 
     const contenLogin = () => {
         return (
             <div className='render-form-login'>
-                <div data-aos="flip-left"><HelpOutlineIcon sx={{ width: 100, height: 100, color: "#ff000082" }} /> </div>
+                {/* <div data-aos="flip-left"><HelpOutlineIcon sx={{ width: 100, height: 100, color: "#ff000082" }} /> </div> */}
                 <h1 className='title'>Tài khoản hoặc mật khẩu không đúng</h1>
                 <p className='desc'>Đã xảy ra lỗi vui lòng quay lại trang chủ hoặc thử lại</p>
+            </div>
+        )
+    }
+
+    const contenRegiterFailed = () => {
+        return (
+            <div className='render-form-register'>
+                {/* <div data-aos="flip-left"><HelpOutlineIcon sx={{ width: 100, height: 100, color: "#ff000082" }} /> </div> */}
+                <h1 className='title'>Email hoặc tài khoản đã tồn tại!</h1>
+                <p className='desc'>Đã xảy ra lỗi vui lòng quay lại trang chủ hoặc thử lại</p>
+            </div>
+        )
+    }
+
+    const contenRegisterSucc = () => {
+        return (
+            <div className='render-form-register_succ'>
+                <div data-aos="flip-left"><DownloadDoneIcon sx={{ width: 100, height: 100, color: "#8dc572" }} /> </div>
+                <h1 className='desc'>Đăng ký thành công</h1>
             </div>
         )
     }
@@ -214,6 +250,17 @@ const LoginPage = () => {
                     open={true}
                     onClose={() => dispatch(setModalLogin(false))}
                     content={contenLogin()}
+                />
+            }
+
+            {
+                isModalRegister &&
+                <BasicModal
+                    open={true}
+                    onClose={() => {
+                        dispatch(setModalRegister(false))
+                    }}
+                    content={!isRegister ? contenRegiterFailed() : contenRegisterSucc()}
                 />
             }
 
