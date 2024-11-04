@@ -6,59 +6,72 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { fetchLogin, setModalLogin } from '../../redux/slices/authentication.slice';
+import { fetchLogin, fetchRegister, setModalLogin } from '../../redux/slices/authentication.slice';
 import { useNavigate } from 'react-router-dom';
 import BasicModal from '../Modal';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+import { useTheme } from "@mui/material/styles"
+import { useMediaQuery } from '@mui/material';
+
+
+const schema = Yup.object().shape({
+    account: Yup.string().required('Tài khoản không được để trống').min(3, 'Tài khoản phải có ít nhất 3 ký tự'),
+    name: Yup.string().required('Tên không được bỏ trống').min(3, 'Tài khoản phải có ít nhất 3 ký tự'),
+    password: Yup.string()
+        .required('Mật khẩu không được bỏ trống')
+        .min(8, 'Mật khẩu phải có ít nhất 8 ký tự')
+        .matches(/[a-z]/, 'Mật khẩu phải có ít nhất một chữ cái thường')
+        .matches(/[A-Z]/, 'Mật khẩu phải có ít nhất một chữ cái hoa'),
+    email: Yup.string()
+        .required('Email không được để trống')
+        .email('Email không hợp lệ'),
+    phone: Yup.string()
+        .required('Số điện thoại không được để trống')
+        .matches(/^(0|\+84)(3|5|7|8|9)[0-9]{8}$/, 'Số điện thoại không hợp lệ'),
+});
+
+const schema_login = Yup.object().shape({
+    account: Yup.string().required('Tài khoản không được để trống'),
+    password: Yup.string()
+        .required('Mật khẩu không được bỏ trống')
+        .min(8, 'Mật khẩu phải có ít nhất 8 ký tự')
+        .matches(/[a-z]/, 'Mật khẩu phải có ít nhất một chữ cái thường')
+        .matches(/[A-Z]/, 'Mật khẩu phải có ít nhất một chữ cái hoa'),
+});
+
 
 const LoginPage = () => {
-
     const [showViewRegister, setShowViewRegister] = useState(false);
     const [value, setValue] = useState('GP01');
     const navigate = useNavigate();
-
-    const [userInfor, setUserInfor] = useState({
-        taiKhoan: "",
-        matKhau: ""
-    })
+    const theme = useTheme();
     const dispatch = useAppDispatch();
-    const { isLogin, isModalLogin } = useAppSelector((state) => state.authenticationReducer);
+    const { isLogin, isModalLogin, isRegister } = useAppSelector((state) => state.authenticationReducer);
 
-    const [formData, setFormData] = useState({
-        username: '',
-        fullname: '',
-        password: '',
-        email: '',
-        phone: '',
-        group: ''
+    const isMobile = useMediaQuery(theme.breakpoints.down(800));
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema),
     });
-    const [errors, setErrors] = useState<any>({});
 
-    const validate = () => {
-        let tempErrors: any = {};
-        if (!formData.username) tempErrors.username = "Tài khoản không được để trống";
-        if (!formData.fullname) tempErrors.fullname = "Họ tên không được để trống";
-        if (!formData.password || formData.password.length < 8) tempErrors.password = "Mật khẩu phải ít nhất 8 kí tự";
-        if (!formData.email) tempErrors.email = "Email không được để trống";
-        if (!formData.phone) tempErrors.phone = "Số điện thoại không được để trống";
-        if (!formData.group) tempErrors.group = "Vui lòng chọn nhóm";
-        setErrors(tempErrors);
-        return Object.keys(tempErrors).length === 0;
+    const { register: registerLogin, handleSubmit: handleSubmitLogin, formState: { errors: errorsLogin } } = useForm({
+        resolver: yupResolver(schema_login),
+    });
+
+    const onSubmit = (data: any) => {
+        dispatch(fetchRegister({ data }))
     };
 
-    const handleChange = (e: any) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+    const onLoginSubmit = (data: any) => {
+        dispatch(fetchLogin({
+            data: {
+                taiKhoan: data.account,
+                matKhau: data.password
+            }
+        }))
     };
-
-    const handleRegister = () => {
-        if (validate()) {
-            // Registration logic here
-            console.log("Form is valid. Submitting form...", formData);
-        }
-        console.log("formData", formData)
-    };
-
 
     useEffect(() => {
         if (isLogin) {
@@ -67,9 +80,7 @@ const LoginPage = () => {
         }
     }, [isLogin])
 
-    const handleSubmit = async () => {
-        dispatch(fetchLogin({ data: userInfor }))
-    }
+
 
     const renderTabOne = () => {
         return (
@@ -77,45 +88,21 @@ const LoginPage = () => {
                 <div className={classNames('block-1')}>
                     <h1 className='title'>Đăng nhập</h1>
                     <p className="desc">hoặc sử dụng tài khoản đã đăng ký của bạn</p>
-                    <div className="field">
-                        <TextField
-                            required
-                            name="taiKhoan"
-                            classes={{ root: "field-check" }}
-                            placeholder='Tài khoản'
-                            onChange={(e) => {
-                                setUserInfor((prev) => {
-                                    return {
-                                        ...prev,
-                                        taiKhoan: e.target.value
-                                    }
-                                })
-                            }}
-                        />
-                    </div>
 
-                    <div className="field field-pass">
-                        <TextField
-                            required
-                            type="password"
-                            classes={{ root: "field-check" }}
-                            placeholder='Mật khẩu'
-                            onChange={(e) => {
-                                setUserInfor((prev) => {
-                                    return {
-                                        ...prev,
-                                        matKhau: e.target.value
-                                    }
-                                })
-                            }}
-                        />
-                    </div>
-                    <div className='btn-forget-password'>
-                        <button> Quên mật khẩu?</button>
-                    </div>
-                    <div className='btn-login'>
-                        <button onClick={handleSubmit}> Đăng nhập </button>
-                    </div>
+                    <form onSubmit={handleSubmitLogin(onLoginSubmit)} className='form-login'>
+                        <div>
+                            <input className='field' {...registerLogin('account')} placeholder='Tài khoản' />
+                            {errorsLogin.account && <p className="error-message">{errorsLogin?.account?.message}</p>}
+                        </div>
+                        <div>
+                            <input type="password" className='field' {...registerLogin('password')} placeholder='Mật khẩu' />
+                            {errorsLogin.password && <p className="error-message">{errorsLogin?.password?.message}</p>}
+                        </div>
+                        <div className='btn-login'>
+                            <button type="submit">Đăng nhập</button>
+                        </div>
+                    </form>
+
                 </div>
                 <div className='block-2'>
                     <h1 className='title'>Xin chào! </h1>
@@ -136,7 +123,7 @@ const LoginPage = () => {
     const renderTabTwo = () => {
         return (
             <>
-                <div className='block-3'>
+                <div className={classNames("block-3", isMobile ? 'block-3-tabnet' : "")}>
                     <h1>Chào mừng bạn đã trở lại!</h1>
                     <p>Vui lòng đăng nhập để kết nối với tài khoản của bạn</p>
                     <div>
@@ -149,93 +136,59 @@ const LoginPage = () => {
                 </div>
                 <div className='block-4'>
                     <h1 className='title'>ĐĂNG KÝ</h1>
-                    <div className='field'>
-                        <TextField
-                            classes={{ root: "field-check" }}
-                            placeholder='Tài khoản'
-                            name='username'
-                            value={formData.username}
-                            onChange={handleChange}
-                            error={!!errors.username}
-                            helperText={errors.username}
-                        />
-                    </div>
-                    <div className='field'>
-                        <TextField
-                            classes={{ root: "field-check" }}
-                            placeholder='Họ tên'
-                            name='fullname'
-                            value={formData.fullname}
-                            error={!!errors.fullname}
-                            helperText={errors.fullname}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className='field'>
-                        <TextField
-                            type="password"
-                            classes={{ root: "field-check" }}
-                            placeholder='Mật khẩu'
-                            name='password'
-                            value={formData.password}
-                            onChange={handleChange}
-                            error={!!errors.password}
-                            helperText={errors.password}
-                        />
-                    </div>
-                    <div className='field'>
-                        <TextField
-                            type="email"
-                            classes={{ root: "field-check" }}
-                            placeholder='Email'
-                            name='email'
-                            value={formData.email}
-                            onChange={handleChange}
-                            error={!!errors.email}
-                            helperText={errors.email}
-                        />
-                    </div>
-                    <div className='field'>
-                        <TextField
-                            classes={{ root: "field-check" }}
-                            placeholder='Số điện thoại'
-                            name='phone'
-                            value={formData.phone}
-                            onChange={handleChange}
-                            error={!!errors.phone}
-                            helperText={errors.phone}
-                        />
-                    </div>
-                    <div className='field'>
-                        <FormControl fullWidth>
-                            <Select
-                                value={value}
-                                onChange={(e, value) => {
-                                    setValue(e.target.value)
-                                }}
-                            >
-                                {
-                                    ['GP01', 'GP02', 'GP03', 'GP04', 'GP05', 'GP06', 'GP07', 'GP08', 'GP09', 'GP10'].map((item) => {
-                                        return (
+
+                    <form onSubmit={handleSubmit(onSubmit)} style={{ width: "80%" }}>
+                        <div className='form-register'>
+                            <div>
+                                <input className='field' {...register('account')} placeholder='Tài khoản' />
+                                {errors.account && <p className="error-message">{errors?.account?.message}</p>}
+                            </div>
+
+                            <div>
+                                <input className='field' {...register('name')} placeholder='Họ tên' />
+                                {errors.name && <p className="error-message">{errors?.name?.message}</p>}
+                            </div>
+
+                            <div>
+                                <input type="password" className='field' {...register('password')} placeholder='Mật khẩu' />
+                                {errors.password && <p className="error-message">{errors?.password?.message}</p>}
+                            </div>
+
+                            <div>
+                                <input className='field' {...register('email')} placeholder='Email' />
+                                {errors.email && <p className="error-message">{errors?.email?.message}</p>}
+                            </div>
+
+                            <div>
+                                <input className='field' {...register('phone')} placeholder='Số điện thoại' />
+                                {errors.phone && <p className="error-message">{errors?.phone?.message}</p>}
+                            </div>
+
+                            <div style={{ backgroundColor: "#eee" }}>
+                                <FormControl fullWidth>
+                                    <Select
+                                        value={value}
+                                        onChange={(e) => {
+                                            setValue(e.target.value);
+                                        }}
+                                    >
+                                        {['GP01', 'GP02', 'GP03', 'GP04', 'GP05', 'GP06', 'GP07', 'GP08', 'GP09', 'GP10'].map((item) => (
                                             <MenuItem value={item} key={item}>{item}</MenuItem>
-                                        )
-                                    })
-                                }
-                            </Select>
-                        </FormControl>
-                    </div>
-                    <div>
-                        <button
-                            className='btn-register'
-                            onClick={handleRegister}
-                        >
-                            Đăng ký
-                        </button>
-                    </div>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </div>
+
+                            <div className='btn-form'>
+                                <button className='btn-register' type="submit">Đăng ký</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </>
         )
     }
+    console.log("isRegister", isRegister)
 
     const contenLogin = () => {
         return (

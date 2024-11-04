@@ -69,9 +69,11 @@ const authenticationSlice = createSlice({
             }
             state.isModalLogin = true;
         });
-        builder.addCase(fetchRegister.fulfilled, (state, action) => {
-            state.isRegister = true
-        });
+        builder
+            .addCase(fetchRegister.fulfilled, (state, action) => {
+                console.log("action register failed", action)
+                state.isRegister = true
+            })
         builder.addCase(fetchAccountInfor.fulfilled, (state, action) => {
             state.accountInfor = action.payload;
         });
