@@ -234,10 +234,25 @@
     flex-direction: column;
     gap: 10px;
     align-items: center;
+
     .title {
         color: #41b294
     }
+
     .desc {
         font-weight: bold;
     }
+}
+
+.render-form-register,
+.render-form-register_succ {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+        font-size: 20px;
+    }
+
 }
